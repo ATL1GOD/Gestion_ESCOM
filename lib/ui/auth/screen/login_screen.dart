@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// import 'package:go_router/go_router.dart';
+import 'package:gestion_escom/ui/docentes/screen/docente_screen.dart'; // <-- Añade esta línea
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -119,21 +121,39 @@ class LoginScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         final email = emailController.text;
                         final password = passwordController.text;
 
-                        showDialog(
+                        // Mostrar los datos en un diálogo
+                        await showDialog(
                           context: context,
                           builder: (_) => AlertDialog(
                             title: const Text('Datos ingresados'),
                             content: Text(
                               'Correo: $email\nContraseña: $password',
                             ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  // Usa Navigator.push para una navegación directa sin GoRouter
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const DocenteListScreen(),
+                                    ),
+                                  );
+                                  // Comenta o elimina la línea de GoRouter
+                                  // context.go('/docente');
+                                },
+                                child: const Text('Ingresar'),
+                              ),
+                            ],
                           ),
                         );
                       },
-                      child: const Text('Ingresar'),
+                      child: const Text('Iniciar sesión'),
                     ),
                   ),
                 ],
