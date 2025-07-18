@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gestion_escom/core/utils/colors.dart';
 import 'package:gestion_escom/ui/docentes/model/docente_model.dart';
 
 class DocenteListItemWidget extends StatelessWidget {
@@ -29,13 +30,14 @@ class DocenteListItemWidget extends StatelessWidget {
       ),
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.textwhite,
         borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: AppColors.textSecondary, width: 1.5),
       ),
       child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
         leading: CircleAvatar(
-          backgroundColor: const Color(0xFF222431),
+          backgroundColor: AppColors.textSecondary,
           child: Text(
             docente.nombre[0], // Muestra la inicial del nombre
             style: const TextStyle(color: Colors.white),
@@ -43,11 +45,14 @@ class DocenteListItemWidget extends StatelessWidget {
         ),
         title: Text(
           docente.nombreCompleto,
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: AppColors.textPrimary,
+          ),
         ),
         subtitle: Text(
           docente.correo,
-          style: TextStyle(color: Colors.grey[600]),
+          style: TextStyle(color: AppColors.textblack),
         ),
       ),
     );

@@ -113,6 +113,17 @@ class DocentePrueba {
         ubicacion: "Edificio J, Oficina 1010",
         auditoria: "Auditoría 10",
       ),
+      DocenteModel(
+        numEmpleado: "171920",
+        nombre: "Marian Kelly",
+        primerApe: "Guzman",
+        segundoApe: "Mares",
+        curp: "GUMA930512MDFRNS10",
+        correo: "marian.kelly@example.com",
+        academia: "Historia",
+        ubicacion: "Edificio J, Oficina 1010",
+        auditoria: "Auditoría 10",
+      ),
     ];
   }
 }

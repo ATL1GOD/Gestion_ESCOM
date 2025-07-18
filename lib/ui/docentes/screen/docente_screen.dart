@@ -4,6 +4,7 @@ import 'package:gestion_escom/ui/docentes/widgets/list_item.dart';
 import 'package:gestion_escom/core/utils/colors.dart';
 import 'package:gestion_escom/shared/elastic_list_view/flutter_elastic_list_view.dart';
 import 'package:gestion_escom/ui/docentes/providers/docente_provider.dart';
+import 'package:gestion_escom/ui/docentes/widgets/search_bar.dart';
 
 // Proveedor de docentes
 final docenteProvider = ChangeNotifierProvider((ref) => DocenteProvider());
@@ -66,6 +67,7 @@ class _DocenteListScreenState extends ConsumerState<DocenteListScreen> {
           child: Column(
             children: [
               const SizedBox(height: 30),
+
               const Text(
                 "Docentes",
                 style: TextStyle(
@@ -74,21 +76,15 @@ class _DocenteListScreenState extends ConsumerState<DocenteListScreen> {
                   color: AppColors.textPrimary,
                 ),
               ),
-              const SizedBox(height: 30),
               const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: TextField(
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    labelText: 'Buscar por nombre o correo',
-                    prefixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                ),
+
+              CustomSearchBar(
+                controller: _searchController,
+                onChanged: (value) {
+                  ref.read(docenteProvider.notifier).filtrarDocentes(value);
+                },
               ),
+
               const SizedBox(height: 30),
               // Usamos la lista de docentes del provider
               ElasticListView.builder(
