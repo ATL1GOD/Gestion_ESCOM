@@ -14,9 +14,9 @@ class LoginScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Stack(
       children: [
-        SizedBox.expand(
-          child: Image.asset('assets/images/fondo.png', fit: BoxFit.cover),
-        ),
+        // SizedBox.expand(
+        //   child: Image.asset('assets/images/fondo.png', fit: BoxFit.cover),
+        // ),
         // Transform.translate(
         // offset: const Offset(0, 70), // mueve hacia abajo 100px child:
         FlutterLogin(
@@ -38,7 +38,7 @@ class LoginScreen extends ConsumerWidget {
             return null;
           },
           theme: LoginTheme(
-            primaryColor: Colors.transparent,
+            primaryColor: AppColors.secondary,
             accentColor: Colors.white,
             titleStyle: const TextStyle(
               color: Colors.white,

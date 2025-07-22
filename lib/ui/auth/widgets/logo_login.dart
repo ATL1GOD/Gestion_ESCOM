@@ -13,7 +13,7 @@ class CustomLoginCard extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             color: AppColors.background,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(70),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withAlpha(128),
@@ -24,11 +24,11 @@ class CustomLoginCard extends StatelessWidget {
           ),
           padding: const EdgeInsets.all(16),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(10),
             child: Image.asset(
               'assets/images/login_imagen.png',
-              width: 150,
-              height: 150,
+              width: 125,
+              height: 125,
               fit: BoxFit.cover,
             ),
           ),
