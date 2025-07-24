@@ -32,7 +32,7 @@ class LoginScreen extends ConsumerWidget {
             if (kDebugMode) {
               print('NAVEGANDO con GoRouter...');
             }
-            context.go('/docentes');
+            context.go('/home');
           },
           onRecoverPassword: (String name) async {
             return null;

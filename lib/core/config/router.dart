@@ -5,6 +5,7 @@ import 'package:gestion_escom/ui/onboarding/provider/onboarding_provider.dart';
 import 'package:gestion_escom/ui/onboarding/screen/onboarding_screen.dart';
 import 'package:gestion_escom/ui/auth/screen/login_screen.dart';
 import 'package:gestion_escom/ui/docentes/screen/docente_screen.dart';
+import 'package:gestion_escom/ui/home/screen/home_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final onboardingCompleteAsync = ref.watch(onboardingCompleteProvider);
@@ -27,9 +28,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(path: '/login', builder: (_, _) => const LoginScreen()),
       GoRoute(path: '/onboarding', builder: (_, _) => const OnboardingScreen()),
+      GoRoute(path: '/docentes', builder: (_, _) => const DocenteListScreen()),
       GoRoute(
-        path: '/docentes',
-        builder: (_, _) => const DocenteListScreen(),
+        path: '/home',
+        builder: (_, _) => const HomeScreen(),
       ), // NUEVA RUTA
     ],
   );
