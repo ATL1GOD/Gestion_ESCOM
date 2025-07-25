@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gestion_escom/shared/navbar.dart';
 import 'package:gestion_escom/ui/carousel/widgets/carousel_slide.dart';
 //info_carousel.dart';
 
@@ -14,7 +13,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const NavBar(),
       body: SafeArea(
         bottom: false,
         child: SingleChildScrollView(
@@ -40,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.only(
                   right: 20,
                   left: 20,
-                  bottom: 0,
+                  bottom: 20,
                 ), //boottom es para
                 child: Center(
                   child: Column(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gestion_escom/shared/navbar.dart';
 import 'package:gestion_escom/ui/docentes/widgets/list_item.dart';
 import 'package:gestion_escom/core/utils/colors.dart';
 import 'package:gestion_escom/shared/elastic_list_view/flutter_elastic_list_view.dart';
@@ -60,7 +59,6 @@ class _DocenteListScreenState extends ConsumerState<DocenteListScreen> {
     final docenteProviderState = ref.watch(docenteProvider);
 
     return Scaffold(
-      bottomNavigationBar: const NavBar(),
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: SingleChildScrollView(
