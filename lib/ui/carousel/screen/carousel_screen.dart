@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gestion_escom/ui/carousel/model/carousel_model.dart';
-import 'package:gestion_escom/ui/home/widgets/sliver_appbar.dart';
-import 'package:gestion_escom/ui/home/widgets/info_body.dart';
+import 'package:gestion_escom/ui/carousel/widgets/sliver_appbar.dart';
+import 'package:gestion_escom/ui/carousel/widgets/info_body.dart';
 
 class CarouselScreen extends StatelessWidget {
   final CarouselItem infoItem;
@@ -10,8 +10,6 @@ class CarouselScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Obtenemos el color de fondo del tema para que el degradado funcione
-    // tanto en modo claro como en modo oscuro.
     final scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
 
     return Scaffold(
@@ -20,13 +18,27 @@ class CarouselScreen extends StatelessWidget {
           // Contenido principal que se puede desplazar
           CustomScrollView(
             slivers: [
-              // El AppBar y el cuerpo ahora reciben el objeto completo
+              // El AppBar se mantiene igual
               CustomSliverAppBar(infoItem: infoItem),
-              SliverToBoxAdapter(child: InfoDetailsBody(infoItem: infoItem)),
+
+              SliverToBoxAdapter(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color:
+                        scaffoldBackgroundColor, // El color del fondo del lienzo
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(25.0),
+                      topRight: Radius.circular(25.0),
+                    ),
+                  ),
+                  child: InfoDetailsBody(
+                    infoItem: infoItem,
+                  ), // El contenido va adentro
+                ),
+              ),
             ],
           ),
 
-          // Degradado superpuesto en la parte inferior para un efecto de desvanecimiento
           Positioned(
             bottom: 0,
             left: 0,
@@ -38,13 +50,10 @@ class CarouselScreen extends StatelessWidget {
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
                   colors: [
-                    scaffoldBackgroundColor, // Color sólido del tema
-                    scaffoldBackgroundColor.withOpacity(0), // Transparente
+                    scaffoldBackgroundColor,
+                    scaffoldBackgroundColor.withAlpha(0),
                   ],
-                  stops: const [
-                    0.2,
-                    1.0,
-                  ], // Controla la transición del degradado
+                  stops: const [0.2, 1.0],
                 ),
               ),
             ),

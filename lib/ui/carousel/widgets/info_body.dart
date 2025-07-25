@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gestion_escom/ui/carousel/model/carousel_model.dart';
-
-// Asumimos que estas secciones están importadas
 import 'package:gestion_escom/ui/carousel/widgets/carousel/becas/becas_section.dart';
 import 'package:gestion_escom/ui/carousel/widgets/carousel/social/redes_section.dart';
 import 'package:gestion_escom/ui/carousel/widgets/carousel/fotografias/fotos_section.dart';
@@ -13,35 +11,44 @@ class InfoDetailsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // El Padding y el SingleChildScrollView se han eliminado.
-    // Esto ahora debe ser manejado por el Sliver padre.
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 16.0),
-        // Fila del autor (sin cambios)
-        Row(
-          children: [
-            CircleAvatar(backgroundImage: AssetImage(infoItem.imgAssets)),
-            const SizedBox(width: 8.0),
-            Text(
-              infoItem.author,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ],
+    // We now use a decoration on the Container to get rounded corners.
+    return Container(
+      // Add a decoration to create the rounded top corners effect.
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
         ),
-        const SizedBox(height: 16.0),
-
-        // Usa un 'switch' sobre el enum. Es más seguro y escalable.
-        _buildContentSection(context),
-      ],
+      ),
+      // Add some padding around the content.
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              CircleAvatar(backgroundImage: AssetImage(infoItem.imgAssets)),
+              const SizedBox(width: 8.0),
+              Text(
+                infoItem.author,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
+          ),
+          const SizedBox(height: 16.0),
+          _buildContentSection(context),
+        ],
+      ),
     );
   }
 
   /// Método helper para construir la sección de contenido según el tipo.
   Widget _buildContentSection(BuildContext context) {
+    // ... (Your switch statement will be corrected in the next step)
     switch (infoItem.infoItemType) {
       case InfoItem.calendario:
+        // This is currently incorrect, it will be fixed in the next section.
         return const BecasSection();
       case InfoItem.redesSociales:
         return const RedesSection();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gestion_escom/core/utils/colors.dart';
 import 'package:gestion_escom/ui/carousel/model/carousel_model.dart';
-import 'package:gestion_escom/ui/home/widgets/appbar_icon.dart';
+import 'package:gestion_escom/ui/carousel/widgets/appbar_icon.dart';
 
 class CustomSliverAppBar extends StatelessWidget {
   final CarouselItem infoItem;
@@ -9,7 +10,6 @@ class CustomSliverAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
 
     // Estilo para el texto sobre la imagen, con sombra para mejor legibilidad.
@@ -19,16 +19,18 @@ class CustomSliverAppBar extends StatelessWidget {
     );
 
     return SliverAppBar(
-      expandedHeight: size.height * 0.4,
+      expandedHeight: size.height * 0.4, // Altura expandida del AppBar
+      toolbarHeight: 35,
       pinned: true,
       stretch: true,
       elevation: 0,
-      backgroundColor: Colors.transparent, // El fondo lo da el FlexibleSpaceBar
+      backgroundColor:
+          AppColors.background, // El fondo lo da el FlexibleSpaceBar
       // Botón para retroceder
       leading: Padding(
-        padding: const EdgeInsets.only(left: 8.0),
+        padding: const EdgeInsets.only(left: 20),
         child: AppBarIcon(
-          icon: Icons.arrow_back_ios_new,
+          icon: Icons.arrow_back_ios_new, //
           onTap: () => Navigator.of(context).pop(),
         ),
       ),
@@ -50,8 +52,7 @@ class CustomSliverAppBar extends StatelessWidget {
           width: double.infinity,
           child: DecoratedBox(
             decoration: BoxDecoration(
-              // Usa el color de fondo del tema para adaptarse a modo claro/oscuro
-              color: theme.scaffoldBackgroundColor,
+              color: AppColors.primary,
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(36.0),
               ),
@@ -102,7 +103,7 @@ class CustomSliverAppBar extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   // Usa el color primario del tema
-                  color: theme.colorScheme.primary,
+                  color: AppColors.secondary,
                   borderRadius: BorderRadius.circular(16.0),
                 ),
                 child: Text(

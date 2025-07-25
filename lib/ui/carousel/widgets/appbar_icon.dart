@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gestion_escom/core/utils/colors.dart';
 
 class AppBarIcon extends StatelessWidget {
   final IconData icon;
@@ -11,7 +12,7 @@ class AppBarIcon extends StatelessWidget {
     super.key,
     required this.icon,
     this.onTap,
-    this.iconSize = 24.0,
+    this.iconSize = 20.0,
     this.color,
     this.backgroundColor,
   });
@@ -26,11 +27,11 @@ class AppBarIcon extends StatelessWidget {
       icon: Icon(icon),
       iconSize: iconSize,
       // Usamos el color provisto, o el color 'onSurface' del tema si es nulo
-      color: color ?? themeColors.onSurface,
+      color: AppColors.background,
       style: IconButton.styleFrom(
         // Usamos el color de fondo provisto, o uno semi-transparente del tema
         backgroundColor:
-            backgroundColor ?? themeColors.onSurface.withOpacity(0.1),
+            backgroundColor ?? themeColors.onSurface.withAlpha(128),
         shape: const CircleBorder(),
       ),
     );

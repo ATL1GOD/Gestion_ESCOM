@@ -1,6 +1,7 @@
 // info_carousel_dots_indicator.dart
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:gestion_escom/core/utils/colors.dart';
 
 class InfoCarouselDotsIndicator extends StatelessWidget {
   final int itemCount;
@@ -37,8 +38,8 @@ class InfoCarouselDotsIndicator extends StatelessWidget {
                   ? BoxShape.rectangle
                   : BoxShape.circle,
               color: currentIndex == index
-                  ? Colors.blue
-                  : Colors.grey.withOpacity(0.3),
+                  ? AppColors.secondary
+                  : Colors.grey.withAlpha(77),
             ),
           ),
         );

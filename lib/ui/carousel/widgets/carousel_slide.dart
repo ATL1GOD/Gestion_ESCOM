@@ -3,7 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gestion_escom/ui/carousel/model/carousel_model.dart';
-import 'package:gestion_escom/ui/home/widgets/dots_indicator.dart';
+import 'package:gestion_escom/ui/carousel/widgets/dots_indicator.dart';
 import 'package:gestion_escom/ui/carousel/screen/carousel_screen.dart';
 
 class InfoCarousel extends StatefulWidget {
@@ -84,7 +84,7 @@ class _InfoCarouselState extends State<InfoCarousel> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '${item.author}',
+                                item.author,
                                 style: const TextStyle(color: Colors.white),
                               ),
                               Text(

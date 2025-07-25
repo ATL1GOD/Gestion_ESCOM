@@ -1,25 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gestion_escom/ui/carousel/widgets/carousel_slide.dart';
+//info_carousel.dart';
 
-// Un provider simple (lo moveremos luego a /providers)
-final contadorProvider = StateProvider<int>((ref) => 0);
-
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final contador = ref.watch(contadorProvider);
+  State<HomeScreen> createState() => _HomeScreenState();
+}
 
-    return Scaffold(
-      appBar: AppBar(title: Text("Contador Riverpod")),
-      body: Center(
-        child: Text('Valor: $contador', style: TextStyle(fontSize: 24)),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => ref.read(contadorProvider.notifier).state++,
-        child: Icon(Icons.add),
-      ),
-    );
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(body: InfoCarousel());
   }
 }
