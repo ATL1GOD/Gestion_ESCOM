@@ -14,6 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: const NavBar(),
       body: SafeArea(
         bottom: false,
         child: SingleChildScrollView(
@@ -35,9 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               const InfoCarousel(),
-              const NavBar(),
-              const SizedBox(height: 15),
-
               Padding(
                 padding: const EdgeInsets.only(
                   right: 20,
