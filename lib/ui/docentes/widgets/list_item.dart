@@ -30,7 +30,7 @@ class DocenteListItemWidget extends StatelessWidget {
       ),
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: AppColors.textwhite,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: AppColors.textSecondary, width: 1.5),
       ),
@@ -52,7 +52,7 @@ class DocenteListItemWidget extends StatelessWidget {
         ),
         subtitle: Text(
           docente.correo,
-          style: TextStyle(color: AppColors.textblack),
+          style: TextStyle(color: AppColors.black),
         ),
       ),
     );

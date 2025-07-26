@@ -139,7 +139,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                             ),
                             child: const Text(
                               "COMENZAR",
-                              style: TextStyle(color: AppColors.textwhite),
+                              style: TextStyle(color: AppColors.white),
                             ),
                           ),
                         )
@@ -194,7 +194,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                                 ),
                                 child: const Text(
                                   "SIGUIENTE",
-                                  style: TextStyle(color: AppColors.textwhite),
+                                  style: TextStyle(color: AppColors.white),
                                 ),
                               ),
                             ],
