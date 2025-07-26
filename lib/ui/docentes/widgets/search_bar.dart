@@ -14,10 +14,18 @@ class CustomSearchBar extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
         image: const DecorationImage(
-          image: AssetImage('assets/images/card5.png'),
+          image: AssetImage('assets/images/card1.png'),
           fit: BoxFit.cover,
         ),
         borderRadius: BorderRadius.circular(25.0),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.textPrimary.withAlpha(100),
+            spreadRadius: 1, // Aumenta el spread para una sombra más difusa
+            blurRadius: 5, // Aumenta el blur para una sombra más suave
+            offset: const Offset(0, 4), // Cambia la dirección de la sombra
+          ),
+        ],
       ),
       child: Column(
         mainAxisSize:
@@ -27,9 +35,9 @@ class CustomSearchBar extends StatelessWidget {
           Text(
             'Busca a\ntu profesor',
             style: GoogleFonts.comicNeue(
-              fontSize: 25,
+              fontSize: 28,
               color: AppColors.textPrimary,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w800,
             ),
           ),
           const SizedBox(height: 20),

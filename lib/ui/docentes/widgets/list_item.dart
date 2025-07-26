@@ -20,7 +20,7 @@ class DocenteListItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       height: 80, // Aumentamos la altura para más contenido
-      width: screenWidth,
+      width: screenWidth, // Ancho completo de la pantalla
       curve: Curves.easeInOut,
       duration: Duration(milliseconds: 300 + (index * 200)),
       transform: Matrix4.translationValues(
@@ -28,20 +28,24 @@ class DocenteListItemWidget extends StatelessWidget {
         0,
         0,
       ),
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppColors.textSecondary, width: 1.5),
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.textPrimary.withAlpha(100),
+            spreadRadius: 1, // Aumenta el spread para una sombra más difusa
+            blurRadius: 5, // Aumenta el blur para una sombra más suave
+            offset: const Offset(0, 4), // Cambia la dirección de la sombra
+          ),
+        ],
       ),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
         leading: CircleAvatar(
-          backgroundColor: AppColors.textSecondary,
-          child: Text(
-            docente.nombre[0], // Muestra la inicial del nombre
-            style: const TextStyle(color: Colors.white),
-          ),
+          backgroundImage: AssetImage("assets/images/card2.png"),
+          radius: 25, // Aumenta el radio para un avatar más grande
         ),
         title: Text(
           docente.nombreCompleto,
