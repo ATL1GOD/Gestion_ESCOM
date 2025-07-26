@@ -39,8 +39,8 @@ class _InfoCarouselState extends State<InfoCarousel> {
                   borderRadius: const BorderRadius.all(Radius.circular(24.0)),
                   child: Stack(
                     children: <Widget>[
-                      Image.asset(
-                        item.imgAssets,
+                      Image.network(
+                        item.imgUrl,
                         fit: BoxFit.cover,
                         width: 1000.0,
                       ),

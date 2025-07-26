@@ -3,7 +3,7 @@ enum InfoItem { calendario, croquis, redesSociales, desconocido }
 class CarouselItem {
   final int id;
   final String title;
-  final String imgAssets;
+  final String imgUrl;
   final InfoItem infoItemType;
   final String category;
   final String author;
@@ -11,7 +11,7 @@ class CarouselItem {
   CarouselItem({
     required this.id,
     required this.title,
-    required this.imgAssets,
+    required this.imgUrl,
     required this.infoItemType,
     required this.category,
     required this.author,
@@ -21,8 +21,9 @@ class CarouselItem {
 List<CarouselItem> news = [
   CarouselItem(
     id: 1,
-    title: 'Fotografias de las instalaciones',
-    imgAssets: 'assets/images/escom1.png',
+    title: 'Ubica los salones',
+    imgUrl:
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/escom5.png',
     infoItemType: InfoItem.desconocido,
     category: 'Fotografias',
     author: 'Estudiantes',
@@ -30,7 +31,8 @@ List<CarouselItem> news = [
   CarouselItem(
     id: 2,
     title: 'Calendario Escolar ',
-    imgAssets: 'assets/images/escom1.png',
+    imgUrl:
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/escom2.png',
     infoItemType: InfoItem.calendario,
     category: 'Semestre 2025/1',
     author: 'ESCOM',
@@ -38,7 +40,8 @@ List<CarouselItem> news = [
   CarouselItem(
     id: 3,
     title: 'Becas Escolares',
-    imgAssets: 'assets/images/escom2.png',
+    imgUrl:
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/escom3.png',
     infoItemType: InfoItem.desconocido,
     category: 'Becas',
     author: 'Departamento de Becas',
@@ -46,7 +49,8 @@ List<CarouselItem> news = [
   CarouselItem(
     id: 4,
     title: 'Visita nuestras redes sociales',
-    imgAssets: 'assets/images/escom2.png',
+    imgUrl:
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/escom4.png',
     infoItemType: InfoItem.redesSociales,
     category: 'Redes Sociales',
     author: 'ESCOM',

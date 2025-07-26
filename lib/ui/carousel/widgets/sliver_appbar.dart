@@ -74,7 +74,7 @@ class CustomSliverAppBar extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         // Imagen de fondo
-        Image.asset(infoItem.imgAssets, fit: BoxFit.cover),
+        Image.network(infoItem.imgUrl, fit: BoxFit.cover),
 
         // Degradado oscuro para asegurar que el texto blanco sea legible
         const DecoratedBox(
