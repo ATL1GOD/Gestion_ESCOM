@@ -11,7 +11,7 @@ import 'package:gestion_escom/ui/home/screen/home_screen.dart';
 import 'package:gestion_escom/shared/navigation_navbar/navigation_scaffold.dart';
 
 // Se definen llaves globales para los navegadores de cada rama
-final _rootNavigatorKey = GlobalKey<NavigatorState>();
+//final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'shellA');
 final _shellNavigatorBKey = GlobalKey<NavigatorState>(debugLabel: 'shellB');
 
