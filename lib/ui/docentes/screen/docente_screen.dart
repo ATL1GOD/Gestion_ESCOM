@@ -6,9 +6,6 @@ import 'package:gestion_escom/shared/elastic_list_view/flutter_elastic_list_view
 import 'package:gestion_escom/ui/docentes/providers/docente_provider.dart';
 import 'package:gestion_escom/ui/docentes/widgets/search_bar.dart';
 
-// Proveedor de docentes
-final docenteProvider = ChangeNotifierProvider((ref) => DocenteProvider());
-
 class DocenteListScreen extends ConsumerStatefulWidget {
   const DocenteListScreen({super.key});
 
