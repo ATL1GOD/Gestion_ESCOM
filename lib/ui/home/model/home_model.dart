@@ -8,9 +8,7 @@ class CardModel {
 
 class CardListModel {
   static final List<CardModel> cards = [
-    CardModel(assetPath: 'assets/images/escom1.png'),
-    CardModel(assetPath: 'assets/images/escom2.png'),
-    CardModel(assetPath: 'assets/images/escom3.png'),
+    CardModel(assetPath: 'assets/images/mapa_escom.png'),
   ];
 }
 

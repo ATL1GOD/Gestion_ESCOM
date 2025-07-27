@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gestion_escom/ui/carousel/widgets/carousel_slide.dart';
+import 'package:gestion_escom/ui/home/widgets/croquis_page.dart';
 //info_carousel.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -62,6 +63,42 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         textAlign: TextAlign.justify, // Tamaño de la fuente
                       ),
+                      // ...existing code...
+                      const SizedBox(height: 30),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const CroquisScreen(),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(
+                            255,
+                            3,
+                            102,
+                            184,
+                          ),
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 30,
+                            vertical: 15,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                        ),
+                        icon: const Icon(Icons.school),
+                        label: const Text(
+                          "Explorar ESCOM",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      // ...existing code...
                     ],
                   ),
                 ),
