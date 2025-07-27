@@ -17,6 +17,23 @@ class DocenteListItemWidget extends StatelessWidget {
     required this.screenWidth,
   });
 
+  // Método para obtener la imagen del avatar según el género del docente
+  AssetImage _getAvatarImage() {
+    if (docente.sexo == 'M') {
+      return const AssetImage(
+        "assets/images/card2.png",
+      ); // Path to your female avatar
+    } else if (docente.sexo == 'H') {
+      return const AssetImage(
+        "assets/images/card3.png",
+      ); // Path to your male avatar
+    } else {
+      return const AssetImage(
+        "assets/images/fondo1.png",
+      ); // A default/fallback image
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -54,7 +71,7 @@ class DocenteListItemWidget extends StatelessWidget {
             vertical: 4,
           ),
           leading: CircleAvatar(
-            backgroundImage: AssetImage("assets/images/card2.png"),
+            backgroundImage: _getAvatarImage(),
             radius: 25, // Aumenta el radio para un avatar más grande
           ),
           title: Text(

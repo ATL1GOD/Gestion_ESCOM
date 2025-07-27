@@ -83,7 +83,7 @@ class _DocenteDetailScreenState extends ConsumerState<DocenteDetailScreen> {
           left: 20,
           right: 20,
           // Pasa el docente y el primer horario a la tarjeta de información
-          child: DocenteInfoCard(docente: docente, horario: horarios.first),
+          child: DocenteInfoCard(docente: docente),
         ),
         const Positioned(top: 100, left: 0, right: 0, child: _ProfileAvatar()),
       ],
