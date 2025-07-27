@@ -61,49 +61,53 @@ class _DocenteListScreenState extends ConsumerState<DocenteListScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          padding: EdgeInsets.symmetric(horizontal: screenWidth / 20),
-          child: Column(
-            children: [
-              const SizedBox(height: 30),
+        child: docenteProviderState.isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth / 20),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 30),
 
-              const Text(
-                "Docentes",
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.textPrimary,
+                    const Text(
+                      "Docentes",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+
+                    CustomSearchBar(
+                      controller: _searchController,
+                      onChanged: (value) {
+                        ref
+                            .read(docenteProvider.notifier)
+                            .filtrarDocentes(value);
+                      },
+                    ),
+
+                    const SizedBox(height: 30),
+                    // Usamos la lista de docentes del provider
+                    ElasticListView.builder(
+                      primary: false,
+                      shrinkWrap: true,
+                      itemCount: docenteProviderState.docentes.length,
+                      itemBuilder: (context, index) {
+                        return DocenteListItemWidget(
+                          docente: docenteProviderState.docentes[index],
+                          index: index,
+                          startAnimation: startAnimation,
+                          screenWidth: screenWidth,
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 50),
+                  ],
                 ),
               ),
-              const SizedBox(height: 20),
-
-              CustomSearchBar(
-                controller: _searchController,
-                onChanged: (value) {
-                  ref.read(docenteProvider.notifier).filtrarDocentes(value);
-                },
-              ),
-
-              const SizedBox(height: 30),
-              // Usamos la lista de docentes del provider
-              ElasticListView.builder(
-                primary: false,
-                shrinkWrap: true,
-                itemCount: docenteProviderState.docentes.length,
-                itemBuilder: (context, index) {
-                  return DocenteListItemWidget(
-                    docente: docenteProviderState.docentes[index],
-                    index: index,
-                    startAnimation: startAnimation,
-                    screenWidth: screenWidth,
-                  );
-                },
-              ),
-              const SizedBox(height: 50),
-            ],
-          ),
-        ),
       ),
     );
   }

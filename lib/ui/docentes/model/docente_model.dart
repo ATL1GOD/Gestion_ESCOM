@@ -1,25 +1,26 @@
 class DocenteModel {
   final String numEmpleado;
-  final String nombre;
-  final String primerApe;
-  final String segundoApe;
-  final String curp;
+  final String profesor;
+  final String sexo;
   final String correo;
-  final String academia;
   final String ubicacion;
-  final String auditoria;
 
   DocenteModel({
     required this.numEmpleado,
-    required this.nombre,
-    required this.primerApe,
-    required this.segundoApe,
-    required this.curp,
+    required this.profesor,
+    required this.sexo,
     required this.correo,
-    required this.academia,
     required this.ubicacion,
-    required this.auditoria,
   });
 
-  String get nombreCompleto => '$nombre $primerApe $segundoApe';
+  // Factory constructor para crear una instancia desde un mapa (JSON)
+  factory DocenteModel.fromJson(Map<String, dynamic> json) {
+    return DocenteModel(
+      numEmpleado: json['numEmpleado'] ?? '',
+      profesor: json['profesor'] ?? '',
+      sexo: json['sexo'] ?? '',
+      correo: json['correo'] ?? '',
+      ubicacion: json['ubicacion'] ?? '',
+    );
+  }
 }

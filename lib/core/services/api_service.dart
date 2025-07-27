@@ -62,7 +62,7 @@ class ApiService {
   /// Obtiene información del docente. El JWT se añade automáticamente por el interceptor.
   Future<Response> getInfoDocente() async {
     try {
-      final response = await _dio.get('/docente/');
+      final response = await _dio.get('/docentes/');
       return response;
     } on DioException catch (e) {
       print('Error en getInfoDocente: $e');
