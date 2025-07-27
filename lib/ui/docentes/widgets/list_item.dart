@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gestion_escom/core/utils/colors.dart';
 import 'package:gestion_escom/ui/docentes/model/docente_model.dart';
-import 'package:go_router/go_router.dart';
 
 class DocenteListItemWidget extends StatelessWidget {
   final DocenteModel docente;
@@ -21,8 +21,8 @@ class DocenteListItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.go(
-          'docentes/${docente.numEmpleado}',
+        context.push(
+          '/docentes/${docente.numEmpleado}',
         ); // Navega a la pantalla de detalle del docente
       },
       child: AnimatedContainer(
