@@ -103,7 +103,7 @@ class ApiService {
       final response = await _dio.post('/directorio/$divisionString/');
       return response;
     } on DioException catch (e) {
-      print('Error en getDirectorio: $e');
+      print('Error en getDirectorio para la división $division: $e');
       rethrow;
     }
   }

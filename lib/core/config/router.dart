@@ -11,9 +11,11 @@ import 'package:gestion_escom/ui/docentes/screen/docente_screen.dart';
 import 'package:gestion_escom/ui/home/screen/home_screen.dart';
 import 'package:gestion_escom/shared/navigation_navbar/navigation_scaffold.dart';
 import 'package:gestion_escom/ui/docentes/screen/docente_detail_screen.dart';
+import 'package:gestion_escom/ui/directory/screen/directorio_screen.dart';
 
 final _shellNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'shellA');
 final _shellNavigatorBKey = GlobalKey<NavigatorState>(debugLabel: 'shellB');
+final _shellNavigatorCKey = GlobalKey<NavigatorState>(debugLabel: 'shellC');
 
 final routerProvider = Provider<GoRouter>((ref) {
   final onboardingCompleteAsync = ref.watch(onboardingCompleteProvider);
@@ -72,6 +74,18 @@ final routerProvider = Provider<GoRouter>((ref) {
                     },
                   ),
                 ],
+              ),
+            ],
+          ),
+          // Rama 2: Directorio
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorCKey,
+            routes: [
+              GoRoute(
+                path: '/directorio',
+                // Cambio: Apunta a la nueva pantalla DirectorioScreen
+                builder: (context, state) => const DirectorioScreen(),
+                // Eliminamos la sub-ruta que no se necesita aquí.
               ),
             ],
           ),
