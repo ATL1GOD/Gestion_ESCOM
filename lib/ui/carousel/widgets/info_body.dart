@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gestion_escom/ui/carousel/model/carousel_model.dart';
 import 'package:gestion_escom/ui/carousel/widgets/carousel/becas/becas_section.dart';
 import 'package:gestion_escom/ui/carousel/widgets/carousel/social/redes_section.dart';
-import 'package:gestion_escom/ui/carousel/widgets/carousel/fotografias/fotos_section.dart';
 
 class InfoDetailsBody extends StatelessWidget {
   final CarouselItem infoItem;
@@ -53,7 +52,7 @@ class InfoDetailsBody extends StatelessWidget {
       case InfoItem.redesSociales:
         return const RedesSection();
       case InfoItem.croquis:
-        return const FotosSection();
+        return const RedesSection();
       case InfoItem.desconocido:
         return Text(
           'El contenido de esta noticia no está disponible.',
