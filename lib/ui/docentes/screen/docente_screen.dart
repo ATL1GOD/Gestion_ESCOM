@@ -17,23 +17,11 @@ class _DocenteListScreenState extends ConsumerState<DocenteListScreen> {
   double screenHeight = 0;
   double screenWidth = 0;
   bool startAnimation = false;
-
   final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    // Carga los datos desde el proveedor de docentes
-    ref.read(docenteProvider.notifier).cargarDocentes();
-
-    _searchController.addListener(() {
-      // Llamar al método de filtrado cuando el texto cambie
-      ref
-          .read(docenteProvider.notifier)
-          .filtrarDocentes(_searchController.text);
-    });
-
-    // Inicia la animación después del primer frame
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       setState(() {
         startAnimation = true;
@@ -52,59 +40,60 @@ class _DocenteListScreenState extends ConsumerState<DocenteListScreen> {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
 
-    // Obtenemos la instancia del provider. La variable ahora se llama 'docenteProviderState' para mayor claridad.
-    final docenteProviderState = ref.watch(docenteProvider);
+    // Observamos el FutureProvider para saber el estado de la carga inicial.
+    final allDocentesAsync = ref.watch(allDocentesProvider);
+    // Observamos el provider de la lista filtrada para construir la UI.
+    final filteredDocentes = ref.watch(filteredDocentesProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
       body: SafeArea(
-        child: docenteProviderState.isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                padding: EdgeInsets.symmetric(horizontal: screenWidth / 20),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 30),
-
-                    const Text(
-                      "Docentes",
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.textPrimary,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-
-                    CustomSearchBar(
-                      controller: _searchController,
-                      onChanged: (value) {
-                        ref
-                            .read(docenteProvider.notifier)
-                            .filtrarDocentes(value);
-                      },
-                    ),
-
-                    const SizedBox(height: 30),
-                    // Usamos la lista de docentes del provider
-                    ElasticListView.builder(
-                      primary: false,
-                      shrinkWrap: true,
-                      itemCount: docenteProviderState.docentes.length,
-                      itemBuilder: (context, index) {
-                        return DocenteListItemWidget(
-                          docente: docenteProviderState.docentes[index],
-                          index: index,
-                          startAnimation: startAnimation,
-                          screenWidth: screenWidth,
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 50),
-                  ],
+        // Usamos .when para reaccionar a los estados de carga, error y datos.
+        child: allDocentesAsync.when(
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (err, stack) => Center(child: Text('Error: $err')),
+          data: (docentes) => SingleChildScrollView(
+            // La data aquí es la lista completa
+            physics: const BouncingScrollPhysics(),
+            padding: EdgeInsets.symmetric(horizontal: screenWidth / 20),
+            child: Column(
+              children: [
+                const SizedBox(height: 30),
+                const Text(
+                  "Docentes",
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
                 ),
-              ),
+                const SizedBox(height: 20),
+                CustomSearchBar(
+                  controller: _searchController,
+                  onChanged: (value) {
+                    // Al cambiar el texto, solo actualizamos el estado del provider de búsqueda.
+                    ref.read(docenteSearchQueryProvider.notifier).state = value;
+                  },
+                ),
+                const SizedBox(height: 30),
+                ElasticListView.builder(
+                  primary: false,
+                  shrinkWrap: true,
+                  itemCount:
+                      filteredDocentes.length, // Usamos la lista ya filtrada
+                  itemBuilder: (context, index) {
+                    return DocenteListItemWidget(
+                      docente: filteredDocentes[index],
+                      index: index,
+                      startAnimation: startAnimation,
+                      screenWidth: screenWidth,
+                    );
+                  },
+                ),
+                const SizedBox(height: 50),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dio_interceptor.dart'; // Importamos nuestro interceptor
 
 // Enum para las divisiones, esto previene errores de tipeo.
+// ignore: constant_identifier_names
 enum Division { DIR, SACED, SEPI, SSEIS, SADM }
 
 class ApiService {
@@ -103,7 +104,7 @@ class ApiService {
       final response = await _dio.post('/directorio/$divisionString/');
       return response;
     } on DioException catch (e) {
-      print('Error en getDirectorio: $e');
+      print('Error en getDirectorio para la división $division: $e');
       rethrow;
     }
   }

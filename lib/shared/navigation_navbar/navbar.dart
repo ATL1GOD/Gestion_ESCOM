@@ -15,6 +15,7 @@ class NavBar extends StatelessWidget {
       items: <Widget>[
         Icon(Icons.home, size: 30, color: AppColors.background),
         Icon(Icons.school, size: 30, color: AppColors.background),
+        Icon(Icons.menu_book, size: 30, color: AppColors.background),
       ],
       color: AppColors.textPrimary,
       buttonBackgroundColor: AppColors.textSecondary,
