@@ -27,7 +27,7 @@ class InfoDetailsBody extends StatelessWidget {
         children: [
           Row(
             children: [
-              CircleAvatar(backgroundImage: AssetImage(infoItem.imgUrl)),
+              CircleAvatar(backgroundImage: NetworkImage(infoItem.imgUrl)),
               const SizedBox(width: 8.0),
               Text(
                 infoItem.author,
