@@ -6,81 +6,64 @@ import 'package:gestion_escom/ui/docentes/providers/docente_provider.dart';
 import 'package:gestion_escom/ui/docentes/widgets/info_card.dart';
 import 'package:gestion_escom/ui/docentes/widgets/list_item_horario.dart';
 
-class DocenteDetailScreen extends ConsumerStatefulWidget {
+// 1. Convertimos el widget a un ConsumerWidget, ya que no necesitamos el estado de initState.
+class DocenteDetailScreen extends ConsumerWidget {
   final String numEmpleado;
   const DocenteDetailScreen({super.key, required this.numEmpleado});
 
   @override
-  ConsumerState<DocenteDetailScreen> createState() =>
-      _DocenteDetailScreenState();
-}
-
-class _DocenteDetailScreenState extends ConsumerState<DocenteDetailScreen> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(docenteProvider.notifier).cargarHorarios(widget.numEmpleado);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final docenteState = ref.watch(docenteProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    // 2. Observamos el provider que tiene la lista de TODOS los docentes.
+    // Asumimos que esta data ya fue cargada y está en caché desde la pantalla anterior.
+    final allDocentesAsync = ref.watch(allDocentesProvider);
 
     return Scaffold(
-      // Mantenemos el fondo del scaffold si es necesario, o lo dejamos por defecto
-      // backgroundColor: Colors.grey[100],
-      body: docenteState.isLoading && docenteState.horarios.isEmpty
-          ? const Center(child: CircularProgressIndicator())
-          : _buildContent(context, docenteState),
-    );
-  }
+      body: allDocentesAsync.when(
+        // El .when principal maneja la carga de la información del docente.
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, stack) =>
+            Center(child: Text('Error al obtener datos: $err')),
+        data: (allDocentes) {
+          // 3. Buscamos el docente específico de forma segura, solo cuando la data está disponible.
+          DocenteModel? docente;
+          try {
+            docente = allDocentes.firstWhere(
+              (d) => d.numEmpleado == numEmpleado,
+            );
+          } catch (e) {
+            docente = null; // El docente no fue encontrado en la lista.
+          }
 
-  // Widget para construir el contenido una vez que la carga ha terminado
-  Widget _buildContent(BuildContext context, DocenteProvider docenteState) {
-    DocenteModel? docente;
-    try {
-      docente = docenteState.docentes.firstWhere(
-        (d) => d.numEmpleado == widget.numEmpleado,
-      );
-    } catch (e) {
-      docente = null; // No se encontró el docente
-    }
+          if (docente == null) {
+            return const Center(
+              child: Text('No se pudo encontrar la información del docente.'),
+            );
+          }
 
-    final horarios = docenteState.horarios;
-
-    // Si el docente no se encontró, muestra un error.
-    if (docente == null) {
-      return const Center(
-        child: Text('No se pudo encontrar la información del docente.'),
-      );
-    }
-
-    // Si no hay horarios, mostramos la info y un mensaje.
-    if (horarios.isEmpty && !docenteState.isLoading) {
-      return _buildLayout(
-        docente: docente,
-        horarioWidget: const SliverFillRemaining(
-          child: Center(
-            child: Text("Este docente no tiene horarios asignados."),
-          ),
-        ),
-      );
-    }
-
-    // Si todo está correcto, construye la pantalla con la lista de horarios.
-    return _buildLayout(
-      docente: docente,
-      horarioWidget: HorarioList(horarios: horarios),
+          // Si encontramos al docente, construimos el layout principal.
+          return _buildLayout(
+            context: context,
+            docente: docente,
+            // 4. Pasamos la referencia 'ref' para que el layout pueda cargar los horarios.
+            ref: ref,
+          );
+        },
+      ),
     );
   }
 
   // Extraemos el layout principal para reutilizarlo
   Widget _buildLayout({
+    required BuildContext context,
     required DocenteModel docente,
-    required Widget horarioWidget,
+    required WidgetRef ref,
   }) {
+    // 5. Dentro del layout, observamos el provider de horarios, pasándole el numEmpleado.
+    // Esto dispara la carga de horarios solo para este docente.
+    final horariosAsync = ref.watch(
+      horariosDocenteProvider(docente.numEmpleado),
+    );
+
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
@@ -107,7 +90,25 @@ class _DocenteDetailScreenState extends ConsumerState<DocenteDetailScreen> {
             ),
           ),
         ),
-        horarioWidget,
+        // 6. Usamos otro .when para la sección de horarios, que tiene su propio estado de carga.
+        horariosAsync.when(
+          loading: () => const SliverFillRemaining(
+            child: Center(child: CircularProgressIndicator()),
+          ),
+          error: (err, stack) => SliverFillRemaining(
+            child: Center(child: Text('Error al cargar horarios: $err')),
+          ),
+          data: (horarios) {
+            if (horarios.isEmpty) {
+              return const SliverFillRemaining(
+                child: Center(
+                  child: Text("Este docente no tiene horarios asignados."),
+                ),
+              );
+            }
+            return HorarioList(horarios: horarios);
+          },
+        ),
       ],
     );
   }

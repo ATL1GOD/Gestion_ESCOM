@@ -46,7 +46,7 @@ class DirectorioListItem extends StatelessWidget {
         ),
         subtitle: Text(
           directorio.puesto,
-          style: TextStyle(color: AppColors.textPrimary.withOpacity(0.7)),
+          style: TextStyle(color: AppColors.textPrimary.withAlpha(179)),
         ),
         childrenPadding: const EdgeInsets.symmetric(
           horizontal: 20,
@@ -90,7 +90,7 @@ class DirectorioListItem extends StatelessWidget {
               directorio.funciones,
               style: TextStyle(
                 fontSize: 13,
-                color: AppColors.textPrimary.withOpacity(0.8),
+                color: AppColors.textPrimary.withAlpha(204),
               ),
             ),
           ],
@@ -114,7 +114,7 @@ class DirectorioListItem extends StatelessWidget {
           child: RichText(
             text: TextSpan(
               style: TextStyle(
-                color: AppColors.textPrimary.withOpacity(0.9),
+                color: AppColors.textPrimary.withAlpha(230),
                 fontSize: 13,
                 fontFamily: 'Roboto',
               ),
