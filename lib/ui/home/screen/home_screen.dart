@@ -13,7 +13,18 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Stack(children: [BodyContent(), HeaderFijo()]));
+    return const Scaffold(
+      body: Stack(
+        children: [
+          BodyContent(),
+          HeaderFijo(
+            imagePath: 'assets/images/escudo_ESCOM_blanco.png',
+            imageHeight: 185,
+            imageWidth: 185,
+          ),
+        ],
+      ),
+    );
   }
 }
 

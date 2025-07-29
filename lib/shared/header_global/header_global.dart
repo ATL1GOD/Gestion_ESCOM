@@ -1,31 +1,37 @@
-// lib/ui/home/widgets/header_fijo.dart
-
 import 'package:flutter/material.dart';
 import 'package:gestion_escom/core/utils/colors.dart';
 
 class HeaderFijo extends StatelessWidget {
-  const HeaderFijo({super.key});
+  final String imagePath;
+  final double imageWidth;
+  final double imageHeight;
+  final Color colorini;
+  final Color colorfin;
+
+  const HeaderFijo({
+    super.key,
+    required this.imagePath,
+    this.imageWidth = 150,
+    this.imageHeight = 150,
+    this.colorini = AppColors.textSecondary,
+    this.colorfin = AppColors.textPrimary,
+  });
 
   @override
   Widget build(BuildContext context) {
-    // Se usa ClipPath para darle una forma personalizada al contenedor del fondo.
     return ClipPath(
       clipper: WaveClipper(),
       child: Container(
         height: 200,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [AppColors.textPrimary, AppColors.textSecondary],
+            colors: [colorini, colorfin],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
         ),
         child: Center(
-          child: Image.asset(
-            'assets/images/escudo_ESCOM_blanco.png',
-            width: 150,
-            height: 150,
-          ),
+          child: Image.asset(imagePath, width: imageWidth, height: imageHeight),
         ),
       ),
     );
