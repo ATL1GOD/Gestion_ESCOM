@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gestion_escom/core/services/api_service.dart';
 import 'package:gestion_escom/core/utils/colors.dart';
+import 'package:gestion_escom/shared/elastic_list_view/flutter_elastic_list_view.dart';
 import 'package:gestion_escom/ui/directory/providers/directorio_provider.dart';
 import 'package:gestion_escom/ui/directory/widgets/list_item_directorio.dart';
+import 'package:gestion_escom/shared/header_global/header_global.dart';
 
 class DirectorioScreen extends ConsumerWidget {
   const DirectorioScreen({super.key});
@@ -14,31 +16,33 @@ class DirectorioScreen extends ConsumerWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: SafeArea(
-        child: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return [
-              SliverAppBar(
-                title: const Text(
-                  "Directorio",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textPrimary,
-                  ),
-                ),
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                floating: true,
-                pinned: true,
-                elevation: 0,
-              ),
-            ];
-          },
-          body: provider.isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : provider.error != null
-              ? Center(child: Text(provider.error!))
-              : _buildDirectorioList(provider, screenWidth),
-        ),
+      body: Stack(
+        children: [
+          SafeArea(
+            child: NestedScrollView(
+              headerSliverBuilder: (context, innerBoxIsScrolled) {
+                return [];
+              },
+              body: provider.isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : provider.error != null
+                  ? Center(child: Text(provider.error!))
+                  : SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 120),
+                          _buildDirectorioList(provider, screenWidth),
+                        ],
+                      ),
+                    ),
+            ),
+          ),
+          const HeaderFijo(
+            imagePath: 'assets/images/escudo_ESCOM_blanco.png',
+            imageHeight: 185,
+            imageWidth: 185,
+          ),
+        ],
       ),
     );
   }
@@ -49,7 +53,9 @@ class DirectorioScreen extends ConsumerWidget {
         .where((div) => provider.directorioData.containsKey(div))
         .toList();
 
-    return ListView.builder(
+    return ElasticListView.builder(
+      shrinkWrap: true,
+      primary: false,
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       itemCount: orderedDivisions.length,
       itemBuilder: (context, index) {
