@@ -1,102 +1,119 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_login/flutter_login.dart';
+import 'package:gestion_escom/core/utils/colors.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gestion_escom/ui/auth/providers/auth_provider.dart';
-import 'package:flutter/foundation.dart';
-import 'package:go_router/go_router.dart';
-import 'package:gestion_escom/core/utils/colors.dart';
-import 'package:gestion_escom/ui/auth/widgets/logo_login.dart';
+import 'package:gestion_escom/ui/auth/widgets/form_card.dart';
+import 'package:gestion_escom/ui/auth/widgets/animated_wave.dart';
 
-class LoginScreen extends ConsumerWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Stack(
-      children: [
-        // SizedBox.expand(
-        //   child: Image.asset('assets/images/fondo.png', fit: BoxFit.cover),
-        // ),
-        // Transform.translate(
-        // offset: const Offset(0, 70), // mueve hacia abajo 100px child:
-        FlutterLogin(
-          hideForgotPasswordButton: true,
-          userType: LoginUserType.name,
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
+}
 
-          onLogin: (loginData) async {
-            return await ref
-                .read(authProvider)
-                .login(loginData.name, loginData.password);
-          },
-          onSubmitAnimationCompleted: () {
-            if (kDebugMode) {
-              print('NAVEGANDO con GoRouter...');
-            }
-            context.go('/home');
-          },
-          onRecoverPassword: (String name) async {
-            return null;
-          },
-          theme: LoginTheme(
-            primaryColor: AppColors.secondary,
-            accentColor: Colors.white,
-            titleStyle: const TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _boletaController = TextEditingController();
+  final _curpController = TextEditingController();
+  bool _isLoading = false;
 
-            cardTheme: const CardTheme(
-              color: AppColors.background,
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-              ),
-            ),
-            buttonStyle: const TextStyle(fontSize: 16),
-            textFieldStyle: const TextStyle(fontSize: 14),
-            buttonTheme: LoginButtonTheme(
-              splashColor: AppColors.textPrimary,
-              backgroundColor: AppColors.secondary,
-              highlightColor: Colors.cyan,
-              elevation: 9.0,
-              highlightElevation: 6.0,
-              shape: BeveledRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-              // shape: CircleBorder(side: BorderSide(color: Colors.green)),
-              // shape: ContinuousRectangleBorder(borderRadius: BorderRadius.circular(55.0)),
+  @override
+  void dispose() {
+    _boletaController.dispose();
+    _curpController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _submitLogin() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    setState(() => _isLoading = true);
+
+    final error = await ref
+        .read(authProvider)
+        .login(_boletaController.text, _curpController.text);
+
+    if (!mounted) return;
+
+    setState(() => _isLoading = false);
+
+    if (error == null) {
+      context.go('/home');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(error), backgroundColor: AppColors.ipn),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                AnimatedWave(color: AppColors.primary, height: 320, speed: 0.7),
+                AnimatedWave(
+                  color: AppColors.secondary,
+                  height: 300,
+                  speed: 1.0,
+                  offset: pi,
+                ),
+                AnimatedWave(
+                  color: AppColors.textSecondary,
+                  height: 300,
+                  speed: 1.4,
+                  offset: pi / 2,
+                ),
+              ],
             ),
           ),
-          messages: LoginMessages(
-            userHint: 'Boleta',
-            passwordHint: 'CURP',
-            loginButton: 'INICIAR SESIÓN',
-            forgotPasswordButton: '',
+          Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 100.0),
+              child: Container(
+                width: 155,
+                height: 125,
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/escudo_ESCOM_azul.png'),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),
+            ),
           ),
-          userValidator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'La boleta es obligatoria';
-            }
-            return null;
-          },
-          passwordValidator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'La CURP es obligatoria';
-            }
-            return null;
-          },
-        ),
 
-        // Imagen flotante encima del login
-        const Positioned(
-          top: 100,
-          left: 0,
-          right: 0,
-          child: IgnorePointer(ignoring: true, child: CustomLoginCard()),
-        ),
-      ],
+          Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FormularioCard(
+                    formKey: _formKey,
+                    boletaController: _boletaController,
+                    curpController: _curpController,
+                    isLoading: _isLoading,
+                    onSubmit: _submitLogin,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

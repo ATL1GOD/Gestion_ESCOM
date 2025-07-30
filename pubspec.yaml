@@ -21,6 +21,7 @@ dependencies:
   go_router: ^16.0.0
   google_fonts: ^6.2.1
   shared_preferences: ^2.5.3
+  simple_animations: ^5.2.0
 
 dev_dependencies:
   flutter_test:
