@@ -30,6 +30,15 @@ class DirectorioProvider extends ChangeNotifier {
     cargarDirectorioCompleto();
   }
 
+  /// Ordena los puestos de mayor a menor jerarquía.
+  final Map<String, int> _puestoOrder = {
+    'DIRECCIÓN': 0,
+    'DECANATO': 1,
+    'COORDINACIÓN DE ENLACE Y GESTIÓN TÉCNICA': 2,
+    'UNIDAD DE INFORMÁTICA': 3,
+    'SUBDIRECCIÓN DE SERVICIOS EDUCATIVOS E INTEGRACIÓN SOCIAL': 4,
+  };
+
   /// Carga el directorio para todas las divisiones de forma concurrente.
   Future<void> cargarDirectorioCompleto() async {
     _isLoading = true;
@@ -41,7 +50,6 @@ class DirectorioProvider extends ChangeNotifier {
       final requests = Division.values.map((division) async {
         try {
           final response = await _apiService.getDirectorio(division: division);
-
           // Verificamos no solo que 'data' no sea nulo, sino también
           // que sea del tipo correcto (List).
           if (response.statusCode == 200 &&
@@ -52,6 +60,12 @@ class DirectorioProvider extends ChangeNotifier {
             final list = dataList
                 .map((json) => DirectorioModel.fromJson(json))
                 .toList();
+            // Ordenamos la lista por el puesto usando el mapa de orden.
+            list.sort((a, b) {
+              final rankA = _puestoOrder[a.puesto] ?? 999;
+              final rankB = _puestoOrder[b.puesto] ?? 999;
+              return rankA.compareTo(rankB);
+            });
             return MapEntry(division, list);
           } else {
             // Devolvemos una entrada de mapa con una lista vacía para esa división.
@@ -71,7 +85,6 @@ class DirectorioProvider extends ChangeNotifier {
 
       // Esperamos a que todas las peticiones terminen.
       final results = await Future.wait(requests);
-
       // Creamos el mapa final a partir de los resultados.
       // Esto asegura que _directorioData siempre sea un mapa válido.
       _directorioData = Map.fromEntries(results);
