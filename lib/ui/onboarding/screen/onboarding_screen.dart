@@ -115,6 +115,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                               await ref
                                   .read(onboardingStateProvider.notifier)
                                   .complete();
+                              ref.invalidate(onboardingCompleteProvider);
                               if (context.mounted) {
                                 context.go('/login');
                               }

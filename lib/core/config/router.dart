@@ -1,75 +1,88 @@
-// (Tus imports permanecen igual)
-import 'package:go_router/go_router.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-import 'package:gestion_escom/ui/onboarding/provider/onboarding_provider.dart';
-import 'package:gestion_escom/ui/onboarding/screen/onboarding_screen.dart';
+// Screens
 import 'package:gestion_escom/ui/auth/screen/login_screen.dart';
-// Asumiendo que DocenteListScreen y DocenteDetailScreen están en este archivo
-import 'package:gestion_escom/ui/docentes/screen/docente_screen.dart';
+import 'package:gestion_escom/ui/onboarding/screen/onboarding_screen.dart';
 import 'package:gestion_escom/ui/home/screen/home_screen.dart';
-import 'package:gestion_escom/shared/navigation_navbar/navigation_scaffold.dart';
+import 'package:gestion_escom/ui/docentes/screen/docente_screen.dart';
 import 'package:gestion_escom/ui/docentes/screen/docente_detail_screen.dart';
 import 'package:gestion_escom/ui/directory/screen/directorio_screen.dart';
+import 'package:gestion_escom/shared/navigation_navbar/navigation_scaffold.dart';
 
-final _shellNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'shellA');
-final _shellNavigatorBKey = GlobalKey<NavigatorState>(debugLabel: 'shellB');
-final _shellNavigatorCKey = GlobalKey<NavigatorState>(debugLabel: 'shellC');
+// Providers
+import 'package:gestion_escom/ui/onboarding/provider/onboarding_provider.dart';
+
+final _navigatorKeys = {
+  'home': GlobalKey<NavigatorState>(debugLabel: 'homeNav'),
+  'docentes': GlobalKey<NavigatorState>(debugLabel: 'docentesNav'),
+  'directorio': GlobalKey<NavigatorState>(debugLabel: 'directorioNav'),
+};
+
+class Routes {
+  static const root = '/';
+  static const login = '/login';
+  static const onboarding = '/onboarding';
+  static const home = '/home';
+  static const docentes = '/docentes';
+  static const directorio = '/directorio';
+}
 
 final routerProvider = Provider<GoRouter>((ref) {
-  final onboardingCompleteAsync = ref.watch(onboardingCompleteProvider);
+  final onboardingState = ref.watch(onboardingCompleteProvider);
+
   return GoRouter(
-    initialLocation: '/',
+    initialLocation: Routes.root,
+    debugLogDiagnostics: true,
+    redirect: (context, state) {
+      final complete = onboardingState.value;
+      if (complete == null) return null;
+      if (!complete && state.matchedLocation != Routes.onboarding) {
+        return Routes.onboarding;
+      }
+      if (complete && state.matchedLocation == Routes.root) {
+        return Routes.login;
+      }
+      return null;
+    },
     routes: [
       GoRoute(
-        path: '/',
-        builder: (context, state) {
-          return onboardingCompleteAsync.when(
-            data: (complete) =>
-                complete ? const LoginScreen() : const OnboardingScreen(),
-            loading: () => const Scaffold(
-              body: Center(child: CircularProgressIndicator()),
-            ),
-            error: (err, _) =>
-                Scaffold(body: Center(child: Text('Error: $err'))),
-          );
-        },
+        path: Routes.root,
+        builder: (_, __) =>
+            const Scaffold(body: Center(child: CircularProgressIndicator())),
       ),
-      GoRoute(path: '/login', builder: (_, _) => const LoginScreen()),
-      GoRoute(path: '/onboarding', builder: (_, _) => const OnboardingScreen()),
-
+      GoRoute(path: Routes.login, builder: (_, __) => const LoginScreen()),
+      GoRoute(
+        path: Routes.onboarding,
+        builder: (_, __) => const OnboardingScreen(),
+      ),
       StatefulShellRoute.indexedStack(
-        builder: (context, state, navigationShell) {
-          return ScaffoldWithNavBar(navigationShell: navigationShell);
-        },
+        builder: (context, state, shell) =>
+            ScaffoldWithNavBar(navigationShell: shell),
         branches: [
-          // Rama 0: Home
+          // 🏠 Home
           StatefulShellBranch(
-            navigatorKey: _shellNavigatorAKey,
+            navigatorKey: _navigatorKeys['home'],
             routes: [
               GoRoute(
-                path: '/home',
-                builder: (context, state) => const HomeScreen(),
+                path: Routes.home,
+                builder: (_, __) => const HomeScreen(),
               ),
             ],
           ),
-          // Rama 1: Docentes
+          // 👨‍🏫 Docentes
           StatefulShellBranch(
-            navigatorKey: _shellNavigatorBKey,
+            navigatorKey: _navigatorKeys['docentes'],
             routes: [
-              // Ruta principal de la lista de docentes
               GoRoute(
-                path: '/docentes',
-                builder: (context, state) => const DocenteListScreen(),
+                path: Routes.docentes,
+                builder: (_, __) => const DocenteListScreen(),
                 routes: [
-                  // Esta es la sub-ruta para el detalle de un docente específico
                   GoRoute(
-                    path: ':numEmpleado', // Acepta un parámetro 'numEmpleado'
+                    path: ':numEmpleado',
                     builder: (context, state) {
-                      // Extraemos el parámetro de la URL
                       final numEmpleado = state.pathParameters['numEmpleado']!;
-                      // Pasamos el ID a la pantalla de detalle
                       return DocenteDetailScreen(numEmpleado: numEmpleado);
                     },
                   ),
@@ -77,15 +90,13 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
-          // Rama 2: Directorio
+          // 📚 Directorio
           StatefulShellBranch(
-            navigatorKey: _shellNavigatorCKey,
+            navigatorKey: _navigatorKeys['directorio'],
             routes: [
               GoRoute(
-                path: '/directorio',
-                // Cambio: Apunta a la nueva pantalla DirectorioScreen
-                builder: (context, state) => const DirectorioScreen(),
-                // Eliminamos la sub-ruta que no se necesita aquí.
+                path: Routes.directorio,
+                builder: (_, _) => const DirectorioScreen(),
               ),
             ],
           ),
