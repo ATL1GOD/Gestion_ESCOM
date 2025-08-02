@@ -3,20 +3,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gestion_escom/core/services/api_service.dart';
 import 'package:dio/dio.dart';
 
-// 🔐 Claves persistencia
+// Claves persistencia
 const _tokenKey = 'authToken';
 const _isLoggedInKey = 'isLoggedIn';
 
-// 👉 Provider para la API
+//Provider para la API
 final apiServiceProvider = Provider<ApiService>((ref) => ApiService());
 
-// 👉 Provider para el AuthNotifier (con persistencia)
+//Provider para el AuthNotifier (con persistencia)
 final authStateProvider = StateNotifierProvider<AuthNotifier, bool>((ref) {
   final api = ref.watch(apiServiceProvider);
   return AuthNotifier(api);
 });
 
-// 👉 Servicio externo (por si quieres usarlo en pantallas para lógica directa)
+// Servicio externo (por si quieres usarlo en pantallas para lógica directa)
 final authServiceProvider = Provider<AuthService>((ref) {
   final api = ref.watch(apiServiceProvider);
   return AuthService(api, ref);

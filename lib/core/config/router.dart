@@ -32,9 +32,7 @@ class Routes {
 
 final routerProvider = Provider<GoRouter>((ref) {
   final onboardingState = ref.watch(onboardingCompleteProvider);
-  final isLoggedIn = ref.watch(
-    authStateProvider,
-  ); // 🚀 Nuevo provider persistente
+  final isLoggedIn = ref.watch(authStateProvider); // Nuevo provider persistente
 
   return GoRouter(
     initialLocation: Routes.root,
@@ -42,10 +40,10 @@ final routerProvider = Provider<GoRouter>((ref) {
     redirect: (context, state) {
       final onboardingComplete = onboardingState.value;
 
-      // 🌀 Mientras no se ha cargado el estado (null), no redirigimos
+      // Mientras no se ha cargado el estado (null), no redirigimos
       if (onboardingComplete == null) return null;
 
-      // 🧭 Redirecciones
+      // Redirecciones
       if (!onboardingComplete && state.matchedLocation != Routes.onboarding) {
         return Routes.onboarding;
       }
@@ -67,13 +65,13 @@ final routerProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
         path: Routes.root,
-        builder: (_, __) =>
+        builder: (_, _) =>
             const Scaffold(body: Center(child: CircularProgressIndicator())),
       ),
-      GoRoute(path: Routes.login, builder: (_, __) => const LoginScreen()),
+      GoRoute(path: Routes.login, builder: (_, _) => const LoginScreen()),
       GoRoute(
         path: Routes.onboarding,
-        builder: (_, __) => const OnboardingScreen(),
+        builder: (_, _) => const OnboardingScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) =>
@@ -82,10 +80,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           StatefulShellBranch(
             navigatorKey: _navigatorKeys['home'],
             routes: [
-              GoRoute(
-                path: Routes.home,
-                builder: (_, __) => const HomeScreen(),
-              ),
+              GoRoute(path: Routes.home, builder: (_, _) => const HomeScreen()),
             ],
           ),
           StatefulShellBranch(
@@ -93,7 +88,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: Routes.docentes,
-                builder: (_, __) => const DocenteListScreen(),
+                builder: (_, _) => const DocenteListScreen(),
                 routes: [
                   GoRoute(
                     path: ':numEmpleado',
@@ -111,7 +106,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: Routes.directorio,
-                builder: (_, __) => const DirectorioScreen(),
+                builder: (_, _) => const DirectorioScreen(),
               ),
             ],
           ),
