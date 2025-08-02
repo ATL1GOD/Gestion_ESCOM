@@ -66,7 +66,9 @@ class EscomDetailListModel {
 enum InfoItem {
   mapaEscom,
   calendario,
-  programasAcademicos,
+  isc,
+  iia,
+  lcd,
   redesSociales,
   desconocido,
 }
@@ -115,14 +117,30 @@ final List<CarouselItem> escomNewsData = [
   ),
   CarouselItem(
     id: 3,
-    title: 'Programas Académicos',
+    title: 'Ingeniería en Sistemas Computacionales',
     imgUrl: '',
-    infoItemType: InfoItem.programasAcademicos,
-    category: 'Carreras',
+    infoItemType: InfoItem.isc,
+    category: 'ISC',
     author: 'ESCOM',
   ),
   CarouselItem(
     id: 4,
+    title: 'Ingeniería en Inteligencia Artificial',
+    imgUrl: '',
+    infoItemType: InfoItem.iia,
+    category: 'IIA',
+    author: 'ESCOM',
+  ),
+  CarouselItem(
+    id: 5,
+    title: 'Licenciatura en Ciencia de Datos',
+    imgUrl: '',
+    infoItemType: InfoItem.lcd,
+    category: 'LCD',
+    author: 'ESCOM',
+  ),
+  CarouselItem(
+    id: 6,
     title: 'Visita nuestras redes sociales',
     imgUrl: '',
     infoItemType: InfoItem.redesSociales,
@@ -147,3 +165,62 @@ final List<CarouselItem> escomNewsWithImages = escomNewsData.map((item) {
     author: item.author,
   );
 }).toList();
+
+// Modelo para los elementos de la sección de carreras
+class CarreraItem {
+  final int id;
+  final String title;
+  final String objectivo;
+  final String perfilIngreso;
+  final String perfilEgreso;
+  final String campoLaboral;
+
+  CarreraItem({
+    required this.id,
+    required this.title,
+    required this.objectivo,
+    required this.perfilIngreso,
+    required this.perfilEgreso,
+    required this.campoLaboral,
+  });
+}
+
+// Lista de carreras
+final List<CarreraItem> carrerasItems = [
+  CarreraItem(
+    id: 0,
+    title: "Ingeniería en Sistemas Computacionales",
+    objectivo:
+        "Formar ingenieros en sistemas computacionales de sólida preparación científica y tecnológica en los ámbitos del desarrollo de software y hardware, que propongan, analicen, diseñen, desarrollen, implementen y gestionen sistemas computacionales a partir de tecnologías de vanguardia y metodologías, normas y estándares nacionales e internacionales de calidad; líderes de equipos de trabajo multidisciplinarios y multiculturales, con un alto sentido ético y de responsabilidad.",
+    perfilIngreso:
+        "Los aspirantes a estudiar este programa deberán tener conocimientos en matemáticas, física e informática. Es también conveniente que posea conocimientos de inglés. Así mismo, deberán contar con habilidades como análisis y síntesis de información, razonamiento lógico y expresión oral y escrita. Así como actitudes de respeto y responsabilidad.",
+    perfilEgreso:
+        "El egresado del programa académico de Ingeniería en Sistemas Computacionales podrá desempeñarse en equipos multidisciplinarios e interdisciplinarios en los ámbitos del desarrollo de software y hardware, sustentando su actuación profesional en valores éticos y de responsabilidad social, con un enfoque de liderazgo y sostenibilidad en los sectores público y privado.",
+    campoLaboral:
+        "El campo profesional en el que se desarrollan los egresados de este Programa Académico es muy amplio, se localiza en los sectores público y privado; en consultorías, en empresas del sector financiero, comercial, de servicios o bien en aquellas dedicadas a la innovación, en entidades federales, estatales, así como pequeño empresario creando empresas emergentes (startups).",
+  ),
+  CarreraItem(
+    id: 1,
+    title: "Ingeniería en Inteligencia Artificial",
+    objectivo:
+        "Formar expertos capaces de desarrollar sistemas inteligentes utilizando diferentes metodologías en las diferentes etapas de desarrollo y aplicando algoritmos en áreas como aprendizaje de máquina, procesamiento automático de lenguaje natural, visión artificial y modelos bioinspirados para atender las necesidades de los diferentes sectores de la sociedad a través de la generación de procesos y soluciones innovadoras.",
+    perfilIngreso:
+        "Los estudiantes que ingresen al Instituto Politécnico Nacional, en cualquiera de sus programas y niveles, deberán contar con los conocimientos y las habilidades básicas que garanticen un adecuado desempeño en el nivel al que solicitan su ingreso. Asimismo, deberán contar con las actitudes y valores necesarios para responsabilizarse de su proceso formativo y asumir una posición activa frente al estudio y al desarrollo de los proyectos y trabajos requeridos, coincidentes con el ideario y principios del IPN.",
+    perfilEgreso:
+        "El egresado de la Ingeniería en Inteligencia Artificial se desempeñará colaborativamente en equipos multidisciplinarios en el análisis, diseño, implementación, validación, implantación, supervisión y gestión de sistemas inteligentes, aplicando algoritmos en áreas como aprendizaje de máquina, procesamiento automático de lenguaje natural, visión artificial y modelos bioinspirados; ejerciendo su profesión con liderazgo, ética y responsabilidad social.",
+    campoLaboral:
+        "Este profesional podrá desempeñarse en el desarrollo y aplicación de la Inteligencia Artificial, en los ámbitos público y privado, en campos ocupacionales como los que se enlistan a continuación:",
+  ),
+  CarreraItem(
+    id: 2,
+    title: "Licenciatura en Ciencia de Datos",
+    objectivo:
+        "Formar expertos capaces de extraer conocimiento implícito y complejo, potencialmente útil a partir de grandes conjuntos de datos, utilizando métodos de inteligencia artificial, aprendizaje de máquina, estadística, sistemas de bases de datos y modelos matemáticos sobre comportamientos probables, para apoyar la toma de decisiones de alta dirección.",
+    perfilIngreso:
+        "Los estudiantes que ingresen al Instituto Politécnico Nacional, en cualquiera de sus programas y niveles, deberán contar con los conocimientos y las habilidades básicas que garanticen un adecuado desempeño en el nivel al que solicitan su ingreso. Asimismo, deberán contar con las actitudes y valores necesarios para responsabilizarse de su proceso formativo y asumir una posición activa frente al estudio y al desarrollo de los proyectos y trabajos requeridos, coincidentes con el ideario y principios del IPN.",
+    perfilEgreso:
+        "El egresado de la Licenciatura de Ciencia de Datos será capaz de extraer conocimiento implícito y complejo, potencialmente útil (descubrimiento de patrones, desviaciones, anomalías, valores anómalos, situaciones interesantes, tendencias), a partir de grandes conjuntos de datos. Utiliza los métodos de la inteligencia artificial, aprendizaje de máquina, estadística y sistemas de bases de datos para la toma de decisiones de alta dirección, fundadas en los datos y modelos matemáticos sobre comportamientos probables, deseables e indeseables, participando en dinámicas de trabajo colaborativo e interdisciplinario con sentido ético y responsabilidad social.",
+    campoLaboral:
+        "Este profesional podrá desempeñarse en los ámbitos público y privado en campos ocupacionales como los que se enlistan a continuación:",
+  ),
+];
