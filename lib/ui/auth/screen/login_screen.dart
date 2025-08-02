@@ -1,11 +1,15 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:gestion_escom/core/utils/colors.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gestion_escom/ui/auth/providers/auth_provider.dart';
+import 'package:go_router/go_router.dart';
+
+// UI y colores
+import 'package:gestion_escom/core/utils/colors.dart';
 import 'package:gestion_escom/ui/auth/widgets/form_card.dart';
 import 'package:gestion_escom/ui/auth/widgets/animated_wave.dart';
+
+// Providers
+import 'package:gestion_escom/ui/auth/providers/auth_provider.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -34,8 +38,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
     setState(() => _isLoading = true);
 
+    // Usamos AuthService que encapsula validaciones y login
     final error = await ref
-        .read(authProvider)
+        .read(authServiceProvider)
         .login(_boletaController.text, _curpController.text);
 
     if (!mounted) return;
@@ -43,6 +48,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     setState(() => _isLoading = false);
 
     if (error == null) {
+      // Ya que el login fue exitoso, el authStateProvider ya cambió a true
       context.go('/home');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -53,6 +59,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isLoggedIn = ref.watch(authStateProvider);
+
+    // Evita mostrar el login si ya está logueado (por precaución)
+    if (isLoggedIn) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.go('/home');
+      });
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
     return Scaffold(
       body: Stack(
         children: [
@@ -84,7 +100,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               child: Container(
                 width: 155,
                 height: 125,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.transparent,
                   image: DecorationImage(
                     image: AssetImage('assets/images/escudo_ESCOM_azul.png'),
@@ -94,7 +110,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
             ),
           ),
-
           Center(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),

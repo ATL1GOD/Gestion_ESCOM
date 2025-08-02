@@ -1,101 +1,122 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gestion_escom/core/services/api_service.dart';
+import 'package:dio/dio.dart';
 
-// Provider para exponer la instancia de ApiService
+// 🔐 Claves persistencia
+const _tokenKey = 'authToken';
+const _isLoggedInKey = 'isLoggedIn';
+
+// 👉 Provider para la API
 final apiServiceProvider = Provider<ApiService>((ref) => ApiService());
 
-// Provider para el servicio de autenticación
-// Ahora depende de apiServiceProvider para poder usar ApiService
-final authProvider = Provider<AuthService>((ref) {
-  final apiService = ref.watch(apiServiceProvider);
-  return AuthService(apiService);
+// 👉 Provider para el AuthNotifier (con persistencia)
+final authStateProvider = StateNotifierProvider<AuthNotifier, bool>((ref) {
+  final api = ref.watch(apiServiceProvider);
+  return AuthNotifier(api);
 });
 
-class AuthService {
-  // Hacemos que AuthService dependa de ApiService
+// 👉 Servicio externo (por si quieres usarlo en pantallas para lógica directa)
+final authServiceProvider = Provider<AuthService>((ref) {
+  final api = ref.watch(apiServiceProvider);
+  return AuthService(api, ref);
+});
+
+class AuthNotifier extends StateNotifier<bool> {
   final ApiService _apiService;
-  AuthService(this._apiService);
 
-  /// Valida que la boleta tenga exactamente 10 dígitos numéricos.
+  AuthNotifier(this._apiService) : super(false) {
+    _loadLoginStatus(); // Carga persistencia al iniciar
+  }
+
+  Future<void> _loadLoginStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    state = prefs.getBool(_isLoggedInKey) ?? false;
+  }
+
+  Future<void> login(String boleta, String curp) async {
+    final response = await _apiService.loginAlumno(
+      boleta: boleta,
+      curp: curp.toUpperCase(),
+    );
+
+    if (response.data['cod'] == 1) {
+      final token = response.data['token'];
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(_tokenKey, token);
+      await prefs.setBool(_isLoggedInKey, true);
+      state = true;
+      print('Login exitoso. Token guardado.');
+    } else {
+      throw Exception(response.data['msg'] ?? 'Credenciales inválidas');
+    }
+  }
+
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_tokenKey);
+    await prefs.setBool(_isLoggedInKey, false);
+    state = false;
+    print('Sesión cerrada.');
+  }
+
+  Future<String?> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_tokenKey);
+  }
+}
+
+class AuthService {
+  final ApiService _api;
+  final Ref _ref;
+
+  AuthService(this._api, this._ref);
+
   String? _validateBoleta(String boleta) {
-    if (boleta.trim().isEmpty) {
-      return 'La boleta es obligatoria.';
-    }
-    // Expresión regular para validar 10 dígitos exactos
-    final boletaRegExp = RegExp(r'^\d{10}$');
-    if (!boletaRegExp.hasMatch(boleta)) {
-      return 'La boleta debe contener exactamente 10 números.';
-    }
-    return null; // Retorna null si es válida
+    if (boleta.trim().isEmpty) return 'La boleta es obligatoria.';
+    final regExp = RegExp(r'^\d{10}$');
+    return regExp.hasMatch(boleta)
+        ? null
+        : 'Debe contener exactamente 10 números.';
   }
 
-  /// Valida el formato de la CURP
   String? _validateCurp(String curp) {
-    if (curp.trim().isEmpty) {
-      return 'La CURP es obligatoria.';
-    }
-
-    if (curp.length != 18) {
+    if (curp.trim().isEmpty) return 'La CURP es obligatoria.';
+    if (curp.length != 18)
       return 'La CURP debe tener exactamente 18 caracteres.';
-    }
-    // // Expresión regular para el formato de la CURP
-    // final curpRegExp = RegExp(
-    //   r'^[A-Z]{4}[0-9]{6}[HM][A-Z]{5}[0-9A-Z]{2}$',
-    //   caseSensitive: true,
-    // );
-
-    // if (!curpRegExp.hasMatch(curp.toUpperCase())) {
-    //   return 'El formato de la CURP no es válido.';
-    // }
-    return null; // Retorna null si es válida
+    return null;
   }
 
-  /// Realiza el login llamando a la API.
-  /// Devuelve null si es exitoso, o un mensaje de error si falla.
   Future<String?> login(String boleta, String curp) async {
     final boletaError = _validateBoleta(boleta);
-    if (boletaError != null) {
-      return boletaError;
-    }
+    if (boletaError != null) return boletaError;
 
-    final curpError = _validateCurp(
-      curp.toUpperCase(),
-    ); // Se convierte a mayúsculas para validar
-    if (curpError != null) {
-      return curpError;
-    }
+    final curpError = _validateCurp(curp);
+    if (curpError != null) return curpError;
 
     try {
-      // Llamamos al método de login de nuestro ApiService
-      final response = await _apiService.loginAlumno(
-        boleta: boleta,
-        curp: curp.toUpperCase(), // Se envía la CURP en mayúsculas
-      );
-      // El método loginAlumno en ApiService ya guarda el token.
-      // Si la petición fue exitosa (código 2xx), Dio no lanzará una excepción.
-      // La API devuelve un código 1 en caso de éxito
-      if (response.data['cod'] == 1) {
-        print('Login exitoso. Token guardado.');
-        return null;
-      } else {
-        // Si la API devuelve un código de no-éxito con status 200
-        return response.data['msg'] ??
-            'Error al iniciar sesion credenciales no validas.';
-      }
+      await _ref.read(authStateProvider.notifier).login(boleta, curp);
+      return null;
     } on DioException catch (e) {
-      print('Error de Dio en el login: $e');
-
-      if (e.response != null && e.response?.data is Map) {
-        // Cambio Clave: Usar la clave "msg" que devuelve tu API en caso de error.
-        return e.response?.data['msg'] ??
-            'Error de desconocido. Intenta más tarde.';
-      }
-
-      return 'No se pudo conectar al servidor. Revisa tu conexión a internet.';
+      print('Dio error: $e');
+      return e.response?.data['msg'] ??
+          'Error de conexión o credenciales incorrectas.';
     } catch (e) {
-      print('Error inesperado en el login: $e');
-      return 'Ocurrió un error inesperado.';
+      print('Login error: $e');
+      return e.toString();
     }
+  }
+
+  Future<void> logOut() async {
+    await _ref.read(authStateProvider.notifier).logout();
+  }
+
+  Future<bool> isLoggedIn() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_isLoggedInKey) ?? false;
+  }
+
+  Future<String?> getToken() async {
+    return await _ref.read(authStateProvider.notifier).getToken();
   }
 }
