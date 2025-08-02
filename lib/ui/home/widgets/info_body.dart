@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gestion_escom/ui/home/model/home_model.dart';
-import 'package:gestion_escom/ui/home/screen/calendario_section.dart';
-import 'package:gestion_escom/ui/home/screen/mapa_screen.dart';
-import 'package:gestion_escom/ui/home/screen/redes_section.dart';
+import 'package:gestion_escom/ui/home/screen/sections/calendario_section.dart';
+import 'package:gestion_escom/ui/home/screen/sections/carreras_section.dart';
+import 'package:gestion_escom/ui/home/screen/sections/mapa_screen.dart';
+import 'package:gestion_escom/ui/home/screen/sections/redes_section.dart';
 
 class InfoDetailsBody extends StatelessWidget {
   final CarouselItem infoItem;
@@ -47,8 +48,18 @@ class InfoDetailsBody extends StatelessWidget {
         return const FotosSection();
       case InfoItem.calendario:
         return const CalendarioSection();
-      case InfoItem.programasAcademicos:
-        return const RedesSection();
+      case InfoItem.isc:
+        return CarrerasSection(
+          carreraItem: carrerasItems.firstWhere((c) => c.id == 0),
+        );
+      case InfoItem.iia:
+        return CarrerasSection(
+          carreraItem: carrerasItems.firstWhere((c) => c.id == 1),
+        );
+      case InfoItem.lcd:
+        return CarrerasSection(
+          carreraItem: carrerasItems.firstWhere((c) => c.id == 2),
+        );
       case InfoItem.redesSociales:
         return const RedesSection();
       case InfoItem.desconocido:
