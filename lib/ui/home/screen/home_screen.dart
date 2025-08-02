@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gestion_escom/ui/carousel/widgets/carousel_slide.dart';
+import 'package:gestion_escom/ui/home/widgets/carousel_slide.dart';
 import 'package:gestion_escom/shared/header_global/header_global.dart';
 import 'package:gestion_escom/ui/home/widgets/info_escom.dart';
-import 'package:gestion_escom/ui/home/widgets/info_escom_details.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
