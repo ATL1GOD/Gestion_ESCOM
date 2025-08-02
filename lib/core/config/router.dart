@@ -49,35 +49,30 @@ final routerProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
         path: Routes.root,
-        builder: (_, __) =>
+        builder: (_, _) =>
             const Scaffold(body: Center(child: CircularProgressIndicator())),
       ),
-      GoRoute(path: Routes.login, builder: (_, __) => const LoginScreen()),
+      GoRoute(path: Routes.login, builder: (_, _) => const LoginScreen()),
       GoRoute(
         path: Routes.onboarding,
-        builder: (_, __) => const OnboardingScreen(),
+        builder: (_, _) => const OnboardingScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) =>
             ScaffoldWithNavBar(navigationShell: shell),
         branches: [
-          // 🏠 Home
           StatefulShellBranch(
             navigatorKey: _navigatorKeys['home'],
             routes: [
-              GoRoute(
-                path: Routes.home,
-                builder: (_, __) => const HomeScreen(),
-              ),
+              GoRoute(path: Routes.home, builder: (_, _) => const HomeScreen()),
             ],
           ),
-          // 👨‍🏫 Docentes
           StatefulShellBranch(
             navigatorKey: _navigatorKeys['docentes'],
             routes: [
               GoRoute(
                 path: Routes.docentes,
-                builder: (_, __) => const DocenteListScreen(),
+                builder: (_, _) => const DocenteListScreen(),
                 routes: [
                   GoRoute(
                     path: ':numEmpleado',
@@ -90,7 +85,6 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
-          // 📚 Directorio
           StatefulShellBranch(
             navigatorKey: _navigatorKeys['directorio'],
             routes: [
