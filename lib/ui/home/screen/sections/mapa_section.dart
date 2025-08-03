@@ -29,7 +29,7 @@ class MapaSection extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) => PhotoViewerScreen(
                   imagePath: featuredPhoto.imagenmapa,
-                  heroTag: featuredPhoto.imagenmapa, // Un tag único
+                  heroTag: featuredPhoto.imagenmapa,
                   title: featuredPhoto.title,
                 ),
               ),
@@ -50,6 +50,11 @@ class MapaSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
+        Text(
+          'En esta sección encontrarás una serie de imágenes que te ayudarán a identificar los salones y laboratorios de la escuela.',
+          textAlign: TextAlign.justify,
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
         GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),

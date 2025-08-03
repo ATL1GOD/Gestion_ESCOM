@@ -45,7 +45,7 @@ class InfoDetailsBody extends StatelessWidget {
   Widget _buildContentSection(BuildContext context) {
     switch (infoItem.infoItemType) {
       case InfoItem.mapaEscom:
-        return const FotosSection();
+        return const MapaSection();
       case InfoItem.calendario:
         return const CalendarioSection();
       case InfoItem.isc:

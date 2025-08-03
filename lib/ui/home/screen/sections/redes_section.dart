@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:url_launcher/url_launcher.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RedesSection extends StatelessWidget {
   const RedesSection({super.key});
@@ -17,29 +18,28 @@ class RedesSection extends StatelessWidget {
         ),
         const SizedBox(height: 16.0),
 
-        // Lista vertical de redes sociales
         Column(
           children: [
             _buildRedSocialItem(
               context,
-              icon: Icons.facebook,
-              color: const Color.fromARGB(255, 1, 124, 224),
-              name: 'ESCOM IPN MX ',
+              icon: FontAwesomeIcons.facebook,
+              color: const Color(0xFF1877F2),
+              name: 'Escuela Superior de Cómputo IPN',
               url: 'https://www.facebook.com/escomipnmx/',
             ),
             _buildRedSocialItem(
               context,
-              icon: Icons.facebook,
-              color: const Color.fromARGB(255, 1, 124, 224),
-              name: 'Becas ESCOM',
-              url: 'https://www.facebook.com/BecasEscom/',
+              icon: FontAwesomeIcons.instagram,
+              color: Colors.black,
+              name: 'escom_ipn_mx',
+              url: 'https://www.instagram.com/escom_ipn_mx',
             ),
             _buildRedSocialItem(
               context,
-              icon: Icons.facebook,
-              color: const Color.fromARGB(255, 1, 124, 224),
-              name: 'Bolsa de Trabajo ESCOM',
-              url: 'https://www.facebook.com/bolsaescom/',
+              icon: FontAwesomeIcons.xTwitter,
+              color: Colors.black,
+              name: 'ESCOM IPN MX',
+              url: 'https://x.com/escomunidad/',
             ),
           ],
         ),
@@ -47,7 +47,6 @@ class RedesSection extends StatelessWidget {
     );
   }
 
-  // Widget para cada red social
   Widget _buildRedSocialItem(
     BuildContext context, {
     required IconData icon,
@@ -58,15 +57,21 @@ class RedesSection extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: InkWell(
-        onTap: () {
-          // Abrir enlace
-          launchUrl(Uri.parse(url));
+        onTap: () async {
+          final uri = Uri.parse(url);
+          if (await canLaunchUrl(uri)) {
+            await launchUrl(uri);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('No se pudo abrir el enlace: $url')),
+            );
+          }
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Row(
             children: [
-              Icon(icon, color: color, size: 32.0),
+              FaIcon(icon, color: color, size: 32.0),
               const SizedBox(width: 16.0),
               Text(name, style: Theme.of(context).textTheme.bodyLarge),
             ],
@@ -74,15 +79,5 @@ class RedesSection extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-// Método para abrir una URL
-void launchUrlFunction(String url) async {
-  final uri = Uri.parse(url);
-  if (await canLaunchUrl(uri)) {
-    await launchUrl(uri);
-  } else {
-    throw 'No se pudo abrir el enlace: $url';
   }
 }
