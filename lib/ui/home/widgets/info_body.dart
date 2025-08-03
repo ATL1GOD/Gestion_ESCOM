@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gestion_escom/ui/home/model/home_model.dart';
 import 'package:gestion_escom/ui/home/screen/sections/calendario_section.dart';
 import 'package:gestion_escom/ui/home/screen/sections/carreras_section.dart';
-import 'package:gestion_escom/ui/home/screen/sections/mapa_screen.dart';
+import 'package:gestion_escom/ui/home/screen/sections/mapa_section.dart';
 import 'package:gestion_escom/ui/home/screen/sections/redes_section.dart';
 
 class InfoDetailsBody extends StatelessWidget {

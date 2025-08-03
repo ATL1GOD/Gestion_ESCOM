@@ -224,3 +224,44 @@ final List<CarreraItem> carrerasItems = [
         "Este profesional podrá desempeñarse en los ámbitos público y privado en campos ocupacionales como los que se enlistan a continuación:",
   ),
 ];
+
+// Modelo para los elementos de la sección de mapa
+class MapaPhoto {
+  final String imagenmapa;
+  final String title;
+  final String author;
+
+  MapaPhoto({
+    required this.imagenmapa,
+    required this.title,
+    required this.author,
+  });
+}
+
+final List<MapaPhoto> photos = [
+  MapaPhoto(
+    imagenmapa: 'assets/images/escom_edificio0.png',
+    title: 'Mapa General de ESCOM',
+    author: 'ESCOM',
+  ),
+  MapaPhoto(
+    imagenmapa: 'assets/images/escom_edificio1.png',
+    title: 'Edificio 1',
+    author: 'ESCOM',
+  ),
+  MapaPhoto(
+    imagenmapa: 'assets/images/escom_edificio2.png',
+    title: 'Edificio 2',
+    author: 'ESCOM',
+  ),
+  MapaPhoto(
+    imagenmapa: 'assets/images/escom_edificio3.png',
+    title: 'Edificio 3',
+    author: 'ESCOM',
+  ),
+  MapaPhoto(
+    imagenmapa: 'assets/images/escom_edificio4.png',
+    title: 'Edificio 4',
+    author: 'ESCOM',
+  ),
+];
