@@ -82,8 +82,9 @@ class AuthService {
 
   String? _validateCurp(String curp) {
     if (curp.trim().isEmpty) return 'La CURP es obligatoria.';
-    if (curp.length != 18)
+    if (curp.length != 18) {
       return 'La CURP debe tener exactamente 18 caracteres.';
+    }
     return null;
   }
 
