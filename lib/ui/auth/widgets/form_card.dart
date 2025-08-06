@@ -53,7 +53,7 @@ class FormularioCard extends StatelessWidget {
               // CURP (Password) Text Field
               TextFormField(
                 controller: curpController,
-                obscureText: true,
+                obscureText: false,
                 style: const TextStyle(fontSize: 14),
                 decoration: const InputDecoration(
                   hintText: 'CURP',
