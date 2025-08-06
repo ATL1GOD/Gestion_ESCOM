@@ -24,6 +24,7 @@ dependencies:
   photo_view: ^0.15.0
   shared_preferences: ^2.5.3
   simple_animations: ^5.2.0
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -62,6 +61,7 @@ class RedesSection extends StatelessWidget {
           if (await canLaunchUrl(uri)) {
             await launchUrl(uri);
           } else {
+            if (!context.mounted) return;
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('No se pudo abrir el enlace: $url')),
             );

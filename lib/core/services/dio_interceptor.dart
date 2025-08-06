@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class DioInterceptor extends Interceptor {
@@ -29,7 +30,9 @@ class DioInterceptor extends Interceptor {
     // Aquí puedes manejar errores de forma global, por ejemplo:
     // Si el error es 401 (No autorizado), puedes redirigir al login.
     if (err.response?.statusCode == 401) {
-      print('Token expirado o inválido. Se necesita un nuevo login.');
+      if (kDebugMode) {
+        print('Token expirado o inválido. Se necesita un nuevo login.');
+      }
       // Lógica para desloguear al usuario
     }
     super.onError(err, handler);

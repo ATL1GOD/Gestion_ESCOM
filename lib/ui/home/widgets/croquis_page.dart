@@ -230,7 +230,7 @@ class FotosSection extends StatelessWidget {
             Navigator.of(context).pop(); // Cierra el diálogo al tocar fuera
           },
           child: Dialog.fullscreen(
-            backgroundColor: Colors.black.withOpacity(0.8),
+            backgroundColor: Colors.black.withAlpha(200),
             child: InteractiveViewer(
               panEnabled: true,
               minScale: 0.5,

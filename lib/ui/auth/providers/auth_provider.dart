@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gestion_escom/core/services/api_service.dart';
@@ -18,8 +19,7 @@ final authStateProvider = StateNotifierProvider<AuthNotifier, bool>((ref) {
 
 // Servicio externo (por si quieres usarlo en pantallas para lógica directa)
 final authServiceProvider = Provider<AuthService>((ref) {
-  final api = ref.watch(apiServiceProvider);
-  return AuthService(api, ref);
+  return AuthService(ref);
 });
 
 class AuthNotifier extends StateNotifier<bool> {
@@ -46,7 +46,9 @@ class AuthNotifier extends StateNotifier<bool> {
       await prefs.setString(_tokenKey, token);
       await prefs.setBool(_isLoggedInKey, true);
       state = true;
-      print('Login exitoso. Token guardado.');
+      if (kDebugMode) {
+        print('Login exitoso. Token guardado.');
+      }
     } else {
       throw Exception(response.data['msg'] ?? 'Credenciales inválidas');
     }
@@ -57,7 +59,9 @@ class AuthNotifier extends StateNotifier<bool> {
     await prefs.remove(_tokenKey);
     await prefs.setBool(_isLoggedInKey, false);
     state = false;
-    print('Sesión cerrada.');
+    if (kDebugMode) {
+      print('Sesión cerrada.');
+    }
   }
 
   Future<String?> getToken() async {
@@ -67,10 +71,9 @@ class AuthNotifier extends StateNotifier<bool> {
 }
 
 class AuthService {
-  final ApiService _api;
   final Ref _ref;
 
-  AuthService(this._api, this._ref);
+  AuthService(this._ref);
 
   String? _validateBoleta(String boleta) {
     if (boleta.trim().isEmpty) return 'La boleta es obligatoria.';
@@ -99,11 +102,15 @@ class AuthService {
       await _ref.read(authStateProvider.notifier).login(boleta, curp);
       return null;
     } on DioException catch (e) {
-      print('Dio error: $e');
+      if (kDebugMode) {
+        print('Dio error: $e');
+      }
       return e.response?.data['msg'] ??
           'Error de conexión o credenciales incorrectas.';
     } catch (e) {
-      print('Login error: $e');
+      if (kDebugMode) {
+        print('Login error: $e');
+      }
       return e.toString();
     }
   }

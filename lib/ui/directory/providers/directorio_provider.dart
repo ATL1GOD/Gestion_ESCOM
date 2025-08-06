@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gestion_escom/core/services/api_service.dart';
 import 'package:gestion_escom/ui/directory/model/directorio_model.dart'; // Asegúrate que la ruta sea correcta
@@ -70,15 +70,19 @@ class DirectorioProvider extends ChangeNotifier {
           } else {
             // Devolvemos una entrada de mapa con una lista vacía para esa división.
             if (response.statusCode == 200 && response.data['data'] != null) {
-              print(
-                'Advertencia: La API no devolvió una lista para la división $division. Valor recibido: "${response.data['data']}"',
-              );
+              if (kDebugMode) {
+                print(
+                  'Advertencia: La API no devolvió una lista para la división $division. Valor recibido: "${response.data['data']}"',
+                );
+              }
             }
             return MapEntry(division, <DirectorioModel>[]);
           }
         } catch (e) {
           // Si una llamada individual falla por cualquier otra razón, también devolvemos una lista vacía.
-          print('Error al procesar la división $division: $e');
+          if (kDebugMode) {
+            print('Error al procesar la división $division: $e');
+          }
           return MapEntry(division, <DirectorioModel>[]);
         }
       }).toList();
@@ -90,7 +94,9 @@ class DirectorioProvider extends ChangeNotifier {
       _directorioData = Map.fromEntries(results);
     } catch (e) {
       _error = 'Ocurrió un error general al cargar el directorio: $e';
-      print(_error);
+      if (kDebugMode) {
+        print(_error);
+      }
     }
 
     _isLoading = false;

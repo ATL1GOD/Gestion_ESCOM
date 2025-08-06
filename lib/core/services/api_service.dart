@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dio_interceptor.dart'; // Importamos nuestro interceptor
 
@@ -54,7 +55,9 @@ class ApiService {
       }
       return response;
     } on DioException catch (e) {
-      print('Error en loginAlumno: $e');
+      if (kDebugMode) {
+        print('Error en loginAlumno: $e');
+      }
       rethrow;
     }
   }
@@ -66,7 +69,9 @@ class ApiService {
       final response = await _dio.get('/docentes/');
       return response;
     } on DioException catch (e) {
-      print('Error en getInfoDocente: $e');
+      if (kDebugMode) {
+        print('Error en getInfoDocente: $e');
+      }
       rethrow;
     }
   }
@@ -78,7 +83,9 @@ class ApiService {
       final response = await _dio.post('/grupos/$numEmpleado/');
       return response;
     } on DioException catch (e) {
-      print('Error en getGruposDocente: $e');
+      if (kDebugMode) {
+        print('Error en getGruposDocente: $e');
+      }
       rethrow;
     }
   }
@@ -90,7 +97,9 @@ class ApiService {
       final response = await _dio.post('/horarios/$numEmpleado/');
       return response;
     } on DioException catch (e) {
-      print('Error en getHorariosDocente: $e');
+      if (kDebugMode) {
+        print('Error en getHorariosDocente: $e');
+      }
       rethrow;
     }
   }
@@ -104,7 +113,9 @@ class ApiService {
       final response = await _dio.post('/directorio/$divisionString/');
       return response;
     } on DioException catch (e) {
-      print('Error en getDirectorio para la división $division: $e');
+      if (kDebugMode) {
+        print('Error en getDirectorio para la división $division: $e');
+      }
       rethrow;
     }
   }
