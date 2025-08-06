@@ -200,7 +200,7 @@ final List<CarreraItem> carrerasItems = [
         "El egresado del programa académico de Ingeniería en Sistemas Computacionales podrá desempeñarse en equipos multidisciplinarios e interdisciplinarios en los ámbitos del desarrollo de software y hardware, sustentando su actuación profesional en valores éticos y de responsabilidad social, con un enfoque de liderazgo y sostenibilidad en los sectores público y privado.",
     campoLaboral:
         "El campo profesional en el que se desarrollan los egresados de este Programa Académico es muy amplio, se localiza en los sectores público y privado; en consultorías, en empresas del sector financiero, comercial, de servicios o bien en aquellas dedicadas a la innovación, en entidades federales, estatales, así como pequeño empresario creando empresas emergentes (startups).",
-    planEstudiosPath: 'assets/images/planisc.png',
+    planEstudiosPath: 'assets/images/planISC.png',
   ),
   CarreraItem(
     id: 1,
@@ -213,7 +213,7 @@ final List<CarreraItem> carrerasItems = [
         "El egresado de la Ingeniería en Inteligencia Artificial se desempeñará colaborativamente en equipos multidisciplinarios en el análisis, diseño, implementación, validación, implantación, supervisión y gestión de sistemas inteligentes, aplicando algoritmos en áreas como aprendizaje de máquina, procesamiento automático de lenguaje natural, visión artificial y modelos bioinspirados; ejerciendo su profesión con liderazgo, ética y responsabilidad social.",
     campoLaboral:
         "Este profesional podrá desempeñarse en el desarrollo y aplicación de la Inteligencia Artificial, en los ámbitos público y privado, en campos ocupacionales como los que se enlistan a continuación:",
-    planEstudiosPath: 'assets/images/planiia.png',
+    planEstudiosPath: 'assets/images/planIIA.png',
   ),
   CarreraItem(
     id: 2,
@@ -226,7 +226,7 @@ final List<CarreraItem> carrerasItems = [
         "El egresado de la Licenciatura de Ciencia de Datos será capaz de extraer conocimiento implícito y complejo, potencialmente útil (descubrimiento de patrones, desviaciones, anomalías, valores anómalos, situaciones interesantes, tendencias), a partir de grandes conjuntos de datos. Utiliza los métodos de la inteligencia artificial, aprendizaje de máquina, estadística y sistemas de bases de datos para la toma de decisiones de alta dirección, fundadas en los datos y modelos matemáticos sobre comportamientos probables, deseables e indeseables, participando en dinámicas de trabajo colaborativo e interdisciplinario con sentido ético y responsabilidad social.",
     campoLaboral:
         "Este profesional podrá desempeñarse en los ámbitos público y privado en campos ocupacionales como los que se enlistan a continuación:",
-    planEstudiosPath: 'assets/images/planlcd.png',
+    planEstudiosPath: 'assets/images/planLCD.png',
   ),
 ];
 

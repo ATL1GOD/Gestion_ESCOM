@@ -36,7 +36,7 @@ class ScaffoldWithNavBar extends ConsumerWidget {
             ), // Espaciado vertical.
             child: Center(
               child: Text(
-                '~~~  Instituto Politecnico Nacional  ~~~',
+                'Instituto Politecnico Nacional',
                 style: TextStyle(
                   color: AppColors.white,
                   fontSize: 11.0,
