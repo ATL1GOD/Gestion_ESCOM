@@ -70,8 +70,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: Stack(
         children: [
+          // Fondo animado
           Align(
             alignment: Alignment.bottomCenter,
             child: Stack(
@@ -93,38 +95,64 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ],
             ),
           ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 100.0),
-              child: Container(
-                width: 155,
-                height: 125,
-                decoration: const BoxDecoration(
-                  color: Colors.transparent,
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/escudo_ESCOM_azul.png'),
-                    fit: BoxFit.fill,
+
+          // Contenido scrollable
+          SafeArea(
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight,
+                    ),
+                    child: IntrinsicHeight(
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 40),
+                          // Logo
+                          Container(
+                            width: 155,
+                            height: 125,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(
+                                  'assets/images/escudo_ESCOM_azul.png',
+                                ),
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 40),
+                          // Formulario
+                          Center(
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                maxWidth:
+                                    400, // opcional para limitar ancho en pantallas grandes
+                                maxHeight:
+                                    420, // ajusta según el diseño que tenías antes
+                              ),
+                              child: FormularioCard(
+                                formKey: _formKey,
+                                boletaController: _boletaController,
+                                curpController: _curpController,
+                                isLoading: _isLoading,
+                                onSubmit: _submitLogin,
+                              ),
+                            ),
+                          ),
+                          // Espacio dinámico para evitar que el botón quede tapado
+                          SizedBox(
+                            height:
+                                MediaQuery.of(context).viewInsets.bottom + 20,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
-          ),
-          Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FormularioCard(
-                    formKey: _formKey,
-                    boletaController: _boletaController,
-                    curpController: _curpController,
-                    isLoading: _isLoading,
-                    onSubmit: _submitLogin,
-                  ),
-                ],
-              ),
+                );
+              },
             ),
           ),
         ],
