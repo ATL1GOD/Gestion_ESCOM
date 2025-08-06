@@ -1,9 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
+import 'package:gestion_escom/core/config/router.dart';
 import 'package:flutter/material.dart';
 import 'package:gestion_escom/ui/home/model/home_model.dart';
 import 'package:gestion_escom/ui/home/widgets/dots_indicator.dart';
-import 'package:gestion_escom/ui/home/screen/carousel_screen.dart';
 
 class InfoCarousel extends StatefulWidget {
   const InfoCarousel({super.key});
@@ -24,10 +24,9 @@ class _InfoCarouselState extends State<InfoCarousel> {
           items: escomNewsWithImages.map((item) {
             return InkWell(
               onTap: () {
-                Navigator.of(context, rootNavigator: true).push(
-                  CupertinoPageRoute(
-                    builder: (_) => CarouselScreen(infoItem: item),
-                  ),
+                context.push(
+                  '${Routes.home}/${Routes.carouselDetails}',
+                  extra: item,
                 );
               },
               child: Container(

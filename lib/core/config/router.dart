@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gestion_escom/ui/home/model/home_model.dart';
 
 // Screens
 import 'package:gestion_escom/ui/auth/screen/login_screen.dart';
@@ -10,6 +11,7 @@ import 'package:gestion_escom/ui/docentes/screen/docente_screen.dart';
 import 'package:gestion_escom/ui/docentes/screen/docente_detail_screen.dart';
 import 'package:gestion_escom/ui/directory/screen/directorio_screen.dart';
 import 'package:gestion_escom/shared/navigation_navbar/navigation_scaffold.dart';
+import 'package:gestion_escom/ui/home/screen/carousel_screen.dart';
 
 // Providers
 import 'package:gestion_escom/ui/onboarding/provider/onboarding_provider.dart';
@@ -26,40 +28,35 @@ class Routes {
   static const login = '/login';
   static const onboarding = '/onboarding';
   static const home = '/home';
+  static const carouselDetails = 'carousel-details';
   static const docentes = '/docentes';
+  static const docentesDetail = ':numEmpleado';
   static const directorio = '/directorio';
 }
 
 final routerProvider = Provider<GoRouter>((ref) {
   final onboardingState = ref.watch(onboardingCompleteProvider);
-  final isLoggedIn = ref.watch(authStateProvider); // Nuevo provider persistente
+  final isLoggedIn = ref.watch(authStateProvider);
 
   return GoRouter(
     initialLocation: Routes.root,
     debugLogDiagnostics: true,
     redirect: (context, state) {
       final onboardingComplete = onboardingState.value;
-
-      // Mientras no se ha cargado el estado (null), no redirigimos
       if (onboardingComplete == null) return null;
-
-      // Redirecciones
       if (!onboardingComplete && state.matchedLocation != Routes.onboarding) {
         return Routes.onboarding;
       }
-
       if (onboardingComplete &&
           !isLoggedIn &&
           state.matchedLocation != Routes.login) {
         return Routes.login;
       }
-
       if (onboardingComplete &&
           isLoggedIn &&
           state.matchedLocation == Routes.root) {
         return Routes.home;
       }
-
       return null;
     },
     routes: [
@@ -80,7 +77,19 @@ final routerProvider = Provider<GoRouter>((ref) {
           StatefulShellBranch(
             navigatorKey: _navigatorKeys['home'],
             routes: [
-              GoRoute(path: Routes.home, builder: (_, _) => const HomeScreen()),
+              GoRoute(
+                path: Routes.home,
+                builder: (_, _) => const HomeScreen(),
+                routes: [
+                  GoRoute(
+                    path: Routes.carouselDetails,
+                    builder: (context, state) {
+                      final infoItem = state.extra as CarouselItem;
+                      return CarouselScreen(infoItem: infoItem);
+                    },
+                  ),
+                ],
+              ),
             ],
           ),
           StatefulShellBranch(
@@ -91,7 +100,7 @@ final routerProvider = Provider<GoRouter>((ref) {
                 builder: (_, _) => const DocenteListScreen(),
                 routes: [
                   GoRoute(
-                    path: ':numEmpleado',
+                    path: Routes.docentesDetail,
                     builder: (context, state) {
                       final numEmpleado = state.pathParameters['numEmpleado']!;
                       return DocenteDetailScreen(numEmpleado: numEmpleado);
