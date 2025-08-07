@@ -3,51 +3,39 @@ import 'package:gestion_escom/ui/home/widgets/carousel_slide.dart';
 import 'package:gestion_escom/shared/header_global/header_global.dart';
 import 'package:gestion_escom/ui/home/widgets/info_escom.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final double headerHeight = (screenWidth * 0.45) + 20;
+
+    return Scaffold(
       body: Stack(
         children: [
-          BodyContent(),
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: headerHeight),
+                const InfoCarousel(),
+                SizedBox(height: screenHeight * 0.015),
+                const InfoEscom(),
+                SizedBox(height: screenHeight * 0.015),
+                const EscomDetails(),
+                SizedBox(height: screenHeight * 0.03),
+              ],
+            ),
+          ),
+
           HeaderFijo(
             imagePath: 'assets/images/escudo_ESCOM_blanco.png',
-            imageHeight: 185,
-            imageWidth: 185,
+            imageHeight: screenWidth * 0.45,
+            imageWidth: screenWidth * 0.45,
           ),
         ],
-      ),
-    );
-  }
-}
-
-// Se extrajo el contenido principal a un widget separado para mayor claridad
-class BodyContent extends StatelessWidget {
-  const BodyContent({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      bottom: false,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 150),
-            const InfoCarousel(),
-            const SizedBox(height: 20),
-            const InfoEscom(),
-            const SizedBox(height: 10),
-            const EscomDetails(),
-          ],
-        ),
       ),
     );
   }

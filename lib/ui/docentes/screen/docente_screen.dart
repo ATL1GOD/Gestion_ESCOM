@@ -16,8 +16,6 @@ class DocenteListScreen extends ConsumerStatefulWidget {
 }
 
 class _DocenteListScreenState extends ConsumerState<DocenteListScreen> {
-  double screenHeight = 0;
-  double screenWidth = 0;
   bool startAnimation = false;
   final TextEditingController _searchController = TextEditingController();
 
@@ -39,12 +37,12 @@ class _DocenteListScreenState extends ConsumerState<DocenteListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    screenHeight = MediaQuery.of(context).size.height;
-    screenWidth = MediaQuery.of(context).size.width;
-
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final double headerImageSize = screenWidth * 0.38;
+    final double headerHeight = headerImageSize + 40;
     // Observamos el FutureProvider para saber el estado de la carga inicial.
     final allDocentesAsync = ref.watch(allDocentesProvider);
-    // Observamos el provider de la lista filtrada para construir la UI.
     final filteredDocentes = ref.watch(filteredDocentesProvider);
 
     return Scaffold(
@@ -53,17 +51,19 @@ class _DocenteListScreenState extends ConsumerState<DocenteListScreen> {
           DocentesBody(
             allDocentesAsync: allDocentesAsync,
             screenWidth: screenWidth,
+            screenHeight: screenHeight,
             searchController: _searchController,
             ref: ref,
             filteredDocentes: filteredDocentes,
             startAnimation: startAnimation,
+            headerHeight: headerHeight,
           ),
           HeaderFijo(
             colorini: AppColors.terciary,
             colorfin: AppColors.primary,
             imagePath: 'assets/images/escudo_ESCOM_azul.png',
-            imageHeight: 154,
-            imageWidth: 154,
+            imageHeight: headerImageSize,
+            imageWidth: headerImageSize,
           ),
         ],
       ),
@@ -76,18 +76,22 @@ class DocentesBody extends StatelessWidget {
     super.key,
     required this.allDocentesAsync,
     required this.screenWidth,
+    required this.screenHeight,
     required TextEditingController searchController,
     required this.ref,
     required this.filteredDocentes,
     required this.startAnimation,
+    required this.headerHeight,
   }) : _searchController = searchController;
 
   final AsyncValue<List<DocenteModel>> allDocentesAsync;
   final double screenWidth;
+  final double screenHeight;
   final TextEditingController _searchController;
   final WidgetRef ref;
   final List<DocenteModel> filteredDocentes;
   final bool startAnimation;
+  final double headerHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +106,7 @@ class DocentesBody extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: screenWidth / 20),
           child: Column(
             children: [
-              const SizedBox(height: 150),
+              SizedBox(height: headerHeight),
               CustomSearchBar(
                 controller: _searchController,
                 onChanged: (value) {
@@ -110,7 +114,7 @@ class DocentesBody extends StatelessWidget {
                   ref.read(docenteSearchQueryProvider.notifier).state = value;
                 },
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: screenHeight * 0.02),
               ElasticListView.builder(
                 primary: false,
                 shrinkWrap: true,
@@ -125,7 +129,7 @@ class DocentesBody extends StatelessWidget {
                   );
                 },
               ),
-              const SizedBox(height: 50),
+              SizedBox(height: screenHeight * 0.04),
             ],
           ),
         ),

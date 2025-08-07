@@ -14,41 +14,55 @@ class DirectorioScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.watch(directorioProvider);
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
+    final double headerImageSize = screenWidth * 0.45;
+    final double headerHeight = (screenWidth * 0.45) + .10;
     return Scaffold(
       body: Stack(
         children: [
-          SafeArea(
-            child: NestedScrollView(
-              headerSliverBuilder: (context, innerBoxIsScrolled) {
-                return [];
-              },
-              body: provider.isLoading
-                  ? const Center(child: CircularProgressIndicator())
-                  : provider.error != null
-                  ? Center(child: Text(provider.error!))
-                  : SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 120),
-                          _buildDirectorioList(provider, screenWidth),
-                        ],
-                      ),
-                    ),
-            ),
-          ),
-          const HeaderFijo(
+          _buildBody(provider, screenWidth, screenHeight, headerHeight),
+          HeaderFijo(
             imagePath: 'assets/images/escudo_ESCOM_blanco.png',
-            imageHeight: 185,
-            imageWidth: 185,
+            imageHeight: headerImageSize,
+            imageWidth: headerImageSize,
           ),
         ],
       ),
     );
   }
 
-  Widget _buildDirectorioList(DirectorioProvider provider, double screenWidth) {
-    // Ordenamos las divisiones según el enum para un orden consistente
+  // Widget para construir el cuerpo, manejando los estados de carga y error.
+  Widget _buildBody(
+    DirectorioProvider provider,
+    double screenWidth,
+    double screenHeight,
+    double headerHeight,
+  ) {
+    if (provider.isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (provider.error != null) {
+      return Center(child: Text(provider.error!));
+    }
+
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SizedBox(height: headerHeight),
+          _buildDirectorioList(provider, screenWidth, screenHeight),
+          SizedBox(height: screenHeight * 0.03),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDirectorioList(
+    DirectorioProvider provider,
+    double screenWidth,
+    double screenHeight,
+  ) {
     final orderedDivisions = Division.values
         .where((div) => provider.directorioData.containsKey(div))
         .toList();
@@ -56,7 +70,7 @@ class DirectorioScreen extends ConsumerWidget {
     return ElasticListView.builder(
       shrinkWrap: true,
       primary: false,
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
       itemCount: orderedDivisions.length,
       itemBuilder: (context, index) {
         final division = orderedDivisions[index];
@@ -67,11 +81,14 @@ class DirectorioScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 24.0, bottom: 8.0, left: 4.0),
+              padding: EdgeInsets.only(
+                top: screenHeight * 0.03,
+                bottom: screenHeight * 0.01,
+              ),
               child: Text(
                 title,
-                style: const TextStyle(
-                  fontSize: 22,
+                style: TextStyle(
+                  fontSize: screenWidth * 0.055,
                   fontWeight: FontWeight.bold,
                   color: AppColors.textPrimary,
                 ),
