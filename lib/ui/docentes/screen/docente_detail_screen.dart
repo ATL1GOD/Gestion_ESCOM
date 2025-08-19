@@ -6,32 +6,27 @@ import 'package:gestion_escom/ui/docentes/providers/docente_provider.dart';
 import 'package:gestion_escom/ui/docentes/widgets/info_card.dart';
 import 'package:gestion_escom/ui/docentes/widgets/list_item_horario.dart';
 
-// 1. Convertimos el widget a un ConsumerWidget, ya que no necesitamos el estado de initState.
 class DocenteDetailScreen extends ConsumerWidget {
   final String numEmpleado;
   const DocenteDetailScreen({super.key, required this.numEmpleado});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 2. Observamos el provider que tiene la lista de TODOS los docentes.
-    // Asumimos que esta data ya fue cargada y está en caché desde la pantalla anterior.
     final allDocentesAsync = ref.watch(allDocentesProvider);
 
     return Scaffold(
       body: allDocentesAsync.when(
-        // El .when principal maneja la carga de la información del docente.
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, stack) =>
             Center(child: Text('Error al obtener datos: $err')),
         data: (allDocentes) {
-          // 3. Buscamos el docente específico de forma segura, solo cuando la data está disponible.
           DocenteModel? docente;
           try {
             docente = allDocentes.firstWhere(
               (d) => d.numEmpleado == numEmpleado,
             );
           } catch (e) {
-            docente = null; // El docente no fue encontrado en la lista.
+            docente = null;
           }
 
           if (docente == null) {
@@ -41,12 +36,7 @@ class DocenteDetailScreen extends ConsumerWidget {
           }
 
           // Si encontramos al docente, construimos el layout principal.
-          return _buildLayout(
-            context: context,
-            docente: docente,
-            // 4. Pasamos la referencia 'ref' para que el layout pueda cargar los horarios.
-            ref: ref,
-          );
+          return _buildLayout(context: context, docente: docente, ref: ref);
         },
       ),
     );
@@ -58,7 +48,6 @@ class DocenteDetailScreen extends ConsumerWidget {
     required DocenteModel docente,
     required WidgetRef ref,
   }) {
-    // 5. Dentro del layout, observamos el provider de horarios, pasándole el numEmpleado.
     // Esto dispara la carga de horarios solo para este docente.
     final horariosAsync = ref.watch(
       horariosDocenteProvider(docente.numEmpleado),
@@ -90,7 +79,6 @@ class DocenteDetailScreen extends ConsumerWidget {
             ),
           ),
         ),
-        // 6. Usamos otro .when para la sección de horarios, que tiene su propio estado de carga.
         horariosAsync.when(
           loading: () => const SliverFillRemaining(
             child: Center(child: CircularProgressIndicator()),
