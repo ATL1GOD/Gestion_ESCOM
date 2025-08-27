@@ -22,15 +22,15 @@ class DocenteListItemWidget extends StatelessWidget {
   AssetImage _getAvatarImage() {
     if (docente.sexo == 'M') {
       return const AssetImage(
-        "assets/images/card2.png",
+        "assets/images/docente2.png",
       ); // Path to your female avatar
     } else if (docente.sexo == 'H') {
       return const AssetImage(
-        "assets/images/card3.png",
+        "assets/images/docente1.png",
       ); // Path to your male avatar
     } else {
       return const AssetImage(
-        "assets/images/fondo1.png",
+        "assets/images/docente0.png",
       ); // A default/fallback image
     }
   }

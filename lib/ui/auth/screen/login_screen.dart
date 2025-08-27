@@ -117,7 +117,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             decoration: const BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage(
-                                  'assets/images/escudo_ESCOM_azul.png',
+                                  'assets/images/escudo_azul.png',
                                 ),
                                 fit: BoxFit.fill,
                               ),

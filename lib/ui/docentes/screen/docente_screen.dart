@@ -63,7 +63,7 @@ class _DocenteListScreenState extends ConsumerState<DocenteListScreen> {
           HeaderFijo(
             colorini: AppColors.terciary,
             colorfin: AppColors.primary,
-            imagePath: 'assets/images/escudo_ESCOM_azul.png',
+            imagePath: 'assets/images/escudo_azul.png',
             imageHeight: headerImageSize,
             imageWidth: headerImageSize,
           ),

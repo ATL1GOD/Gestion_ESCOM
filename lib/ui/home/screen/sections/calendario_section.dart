@@ -6,7 +6,7 @@ class CalendarioSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const String imagePath = 'assets/images/calendarioipn.png';
+    const String imagePath = 'assets/images/calendario_ipn.png';
     const String heroTag = imagePath;
     const String title = 'Calendario Académico IPN';
 

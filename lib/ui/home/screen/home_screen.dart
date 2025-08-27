@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
           ),
 
           HeaderFijo(
-            imagePath: 'assets/images/escudo_ESCOM_blanco.png',
+            imagePath: 'assets/images/escudo_blanco.png',
             imageHeight: screenWidth * 0.45,
             imageWidth: screenWidth * 0.45,
           ),

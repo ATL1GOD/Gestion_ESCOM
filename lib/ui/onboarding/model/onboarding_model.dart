@@ -9,7 +9,7 @@ class OnboardingContents {
 List<OnboardingContents> contents = [
   OnboardingContents(
     title: "Todos somos ESCOM",
-    image: "assets/images/onboarding4.svg",
+    image: "assets/images/onboarding3.svg",
     desc: "Queremos hacerte sentir parte de la escomunidad.",
   ),
   OnboardingContents(
@@ -19,7 +19,7 @@ List<OnboardingContents> contents = [
   ),
   OnboardingContents(
     title: "Bienvenido a ESCOM",
-    image: "assets/images/onboarding5.svg",
+    image: "assets/images/onboarding0.svg",
     desc:
         "Te damos la bienvenida a la comunidad de ESCOM, donde la innovación y el aprendizaje se unen.",
   ),

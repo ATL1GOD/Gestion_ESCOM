@@ -56,7 +56,7 @@ class EscomDetailListModel {
       
       Dos estudiantes de la licenciatura en diseño gráfico de la UAM-Azcapotzalco, apegados a los lineamientos generaron logotipos e imágenes, resultando ganador el presentado por la C. Guadalupe Gómez Sánchez, durante el simposium Tecno-Industria ESCOM-95. Enmarzo de 2011 se incluyó la leyenda Instituto Politécnico Nacional.
       """,
-      image: Image.asset('assets/images/escudo_ESCOM_azul.png'),
+      image: Image.asset('assets/images/escudo_azul.png'),
       icon: Icons.shield_sharp,
     ),
   ];

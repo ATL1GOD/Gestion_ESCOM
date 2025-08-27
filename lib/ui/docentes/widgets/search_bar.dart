@@ -14,7 +14,7 @@ class CustomSearchBar extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
         image: const DecorationImage(
-          image: AssetImage('assets/images/card1.png'),
+          image: AssetImage('assets/images/docente0.png'),
           fit: BoxFit.cover,
         ),
         borderRadius: BorderRadius.circular(25.0),

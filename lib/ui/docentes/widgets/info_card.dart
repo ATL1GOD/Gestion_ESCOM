@@ -8,11 +8,11 @@ class DocenteInfoCard extends StatelessWidget {
 
   AssetImage _getAvatarImage() {
     if (docente.sexo == 'M') {
-      return const AssetImage("assets/images/card2.png");
+      return const AssetImage("assets/images/docente2.png");
     } else if (docente.sexo == 'H') {
-      return const AssetImage("assets/images/card3.png");
+      return const AssetImage("assets/images/docente1.png");
     } else {
-      return const AssetImage("assets/images/fondo1.png");
+      return const AssetImage("assets/images/docente0.png");
     }
   }
 

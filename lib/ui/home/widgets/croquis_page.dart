@@ -254,5 +254,5 @@ class CardListModel {
   final String assetPath;
   CardListModel(this.assetPath);
 
-  static final cards = [CardListModel('assets/images/mapa_escom.png')];
+  static final cards = [CardListModel('assets/images/escom_edificio0.png')];
 }
