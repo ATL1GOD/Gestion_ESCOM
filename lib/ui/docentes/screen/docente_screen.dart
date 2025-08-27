@@ -23,9 +23,11 @@ class _DocenteListScreenState extends ConsumerState<DocenteListScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      setState(() {
-        startAnimation = true;
-      });
+      if (mounted) {
+        setState(() {
+          startAnimation = true;
+        });
+      }
     });
   }
 

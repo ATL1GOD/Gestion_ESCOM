@@ -5,7 +5,7 @@ import 'dio_interceptor.dart'; // Importamos nuestro interceptor
 
 // Enum para las divisiones, esto previene errores de tipeo.
 // ignore: constant_identifier_names
-enum Division { DIR, SACED, SEPI, SSEIS, SADM }
+enum Division { DIR, SACAD, SEPI, SSEIS, SADM }
 
 class ApiService {
   final Dio _dio;
@@ -108,7 +108,7 @@ class ApiService {
   /// Obtiene el directorio de una división específica.
   Future<Response> getDirectorio({required Division division}) async {
     try {
-      // Convertimos el enum a String para la URL (ej: Division.SACED -> "SACED")
+      // Convertimos el enum a String para la URL (ej: Division.SACAD -> "SACAD")
       final divisionString = division.toString().split('.').last;
       final response = await _dio.post('/directorio/$divisionString/');
       return response;

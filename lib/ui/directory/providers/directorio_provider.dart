@@ -21,7 +21,7 @@ class DirectorioProvider extends ChangeNotifier {
   final Map<Division, String> divisionTitles = {
     Division.DIR: 'Dirección',
     Division.SADM: 'Subdirección Administrativa',
-    Division.SACED: 'Subdirección Académica',
+    Division.SACAD: 'Subdirección Académica',
     Division.SSEIS: 'Subdirección de Servicios Educativos e Integración Social',
     Division.SEPI: 'Sección de Estudios de Posgrado e Investigación',
   };
