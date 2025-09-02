@@ -119,4 +119,18 @@ class ApiService {
       rethrow;
     }
   }
+
+  /// GET /academias/
+  /// Obtiene la información de todas las academias.
+  Future<Response> getAcademias() async {
+    try {
+      final response = await _dio.get('/academias/');
+      return response;
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        print('Error en getAcademias: $e');
+      }
+      rethrow;
+    }
+  }
 }

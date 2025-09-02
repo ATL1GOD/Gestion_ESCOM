@@ -12,6 +12,7 @@ import 'package:gestion_escom/ui/docentes/screen/docente_detail_screen.dart';
 import 'package:gestion_escom/ui/directory/screen/directorio_screen.dart';
 import 'package:gestion_escom/shared/navigation_navbar/navigation_scaffold.dart';
 import 'package:gestion_escom/ui/home/screen/carousel_screen.dart';
+import 'package:gestion_escom/ui/academy/screen/academia_screen.dart';
 
 // Providers
 import 'package:gestion_escom/ui/onboarding/provider/onboarding_provider.dart';
@@ -21,6 +22,7 @@ final _navigatorKeys = {
   'home': GlobalKey<NavigatorState>(debugLabel: 'homeNav'),
   'docentes': GlobalKey<NavigatorState>(debugLabel: 'docentesNav'),
   'directorio': GlobalKey<NavigatorState>(debugLabel: 'directorioNav'),
+  'academias': GlobalKey<NavigatorState>(debugLabel: 'academiasNav'),
 };
 
 class Routes {
@@ -32,6 +34,7 @@ class Routes {
   static const docentes = '/docentes';
   static const docentesDetail = ':numEmpleado';
   static const directorio = '/directorio';
+  static const academias = '/academias';
 }
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -116,6 +119,15 @@ final routerProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: Routes.directorio,
                 builder: (_, _) => const DirectorioScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _navigatorKeys['academias'],
+            routes: [
+              GoRoute(
+                path: Routes.academias,
+                builder: (_, _) => const AcademiaListScreen(),
               ),
             ],
           ),

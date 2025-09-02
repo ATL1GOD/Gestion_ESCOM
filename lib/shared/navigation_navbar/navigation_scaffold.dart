@@ -24,6 +24,7 @@ class ScaffoldWithNavBar extends ConsumerWidget {
         children: [
           NavBar(
             // Le pasamos el índice actual a la NavBar.
+            // key: ValueKey(navigationShell.currentIndex),
             currentIndex: navigationShell.currentIndex,
             // Le pasamos una función para manejar el tap.
             onTap: (index) => _onTap(index, ref),
