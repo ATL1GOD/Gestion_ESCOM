@@ -18,7 +18,7 @@ class AcademiaSearchBar extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
         image: const DecorationImage(
-          image: AssetImage('assets/images/docente0.png'),
+          image: AssetImage('assets/images/academia0.png'),
           fit: BoxFit.cover,
         ),
         borderRadius: BorderRadius.circular(25.0),
@@ -37,9 +37,9 @@ class AcademiaSearchBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Busca a\ntu profesor',
+            'Busca tu \n        academia',
             style: GoogleFonts.comicNeue(
-              fontSize: 28,
+              fontSize: 29,
               color: AppColors.textPrimary,
               fontWeight: FontWeight.w800,
             ),
@@ -56,7 +56,7 @@ class AcademiaSearchBar extends StatelessWidget {
               ),
               filled: true,
               fillColor: AppColors.white,
-              hintText: 'Buscar por nombre o correo',
+              hintText: 'Buscar por materia o academia',
               hintStyle: const TextStyle(color: AppColors.secondary),
               prefixIcon: const Icon(Icons.search, color: AppColors.secondary),
               border: OutlineInputBorder(

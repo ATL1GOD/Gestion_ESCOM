@@ -22,7 +22,7 @@ class AcademiaListItemWidget extends ConsumerWidget {
     final textStyle = const TextStyle(color: Colors.black87, fontSize: 14);
     final highlightStyle = textStyle.copyWith(
       fontWeight: FontWeight.bold,
-      backgroundColor: AppColors.primary.withAlpha(50),
+      backgroundColor: AppColors.primary.withAlpha(180),
     );
 
     if (query.isEmpty) {
@@ -86,13 +86,17 @@ class AcademiaListItemWidget extends ConsumerWidget {
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
-                  color: AppColors.primary,
+                  color: AppColors.textPrimary,
                 ),
               ),
               const SizedBox(height: 8),
               Row(
                 children: [
-                  const Icon(Icons.person, size: 16, color: Colors.grey),
+                  const Icon(
+                    Icons.person,
+                    size: 16,
+                    color: AppColors.secondary,
+                  ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
