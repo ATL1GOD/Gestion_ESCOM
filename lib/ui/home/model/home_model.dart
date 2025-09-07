@@ -269,4 +269,9 @@ final List<MapaPhoto> photos = [
     title: 'Edificio 4',
     author: 'ESCOM',
   ),
+  MapaPhoto(
+    imagenmapa: 'assets/images/escom_edificio5.png',
+    title: 'Edificio 5',
+    author: 'ESCOM',
+  ),
 ];

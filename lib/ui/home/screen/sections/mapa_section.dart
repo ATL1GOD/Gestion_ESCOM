@@ -128,6 +128,7 @@ class MapaSection extends StatelessWidget {
             );
           },
         ),
+        const SizedBox(height: 20),
       ],
     );
   }
