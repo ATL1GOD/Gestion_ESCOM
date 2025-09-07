@@ -60,6 +60,10 @@ class InfoDetailsBody extends StatelessWidget {
         return CarrerasSection(
           carreraItem: carrerasItems.firstWhere((c) => c.id == 2),
         );
+      case InfoItem.isa:
+        return CarrerasSection(
+          carreraItem: carrerasItems.firstWhere((c) => c.id == 3),
+        );
       case InfoItem.redesSociales:
         return const RedesSection();
       case InfoItem.desconocido:

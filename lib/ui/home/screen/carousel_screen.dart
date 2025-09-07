@@ -42,7 +42,7 @@ class CarouselScreen extends StatelessWidget {
             left: 0,
             right: 0,
             child: Container(
-              height: 120, // Altura del degradado
+              height: 90, // Altura del degradado
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.bottomCenter,

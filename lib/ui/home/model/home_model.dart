@@ -69,6 +69,7 @@ enum InfoItem {
   isc,
   iia,
   lcd,
+  isa,
   redesSociales,
   desconocido,
 }
@@ -141,6 +142,14 @@ final List<CarouselItem> escomNewsData = [
   ),
   CarouselItem(
     id: 6,
+    title: 'Ingeniería en Sistemas Automotrices',
+    imgUrl: '',
+    infoItemType: InfoItem.isa,
+    category: 'ISA',
+    author: 'ESCOM',
+  ),
+  CarouselItem(
+    id: 7,
     title: 'Visita nuestras redes sociales',
     imgUrl: '',
     infoItemType: InfoItem.redesSociales,
@@ -227,6 +236,20 @@ final List<CarreraItem> carrerasItems = [
     campoLaboral:
         "Este profesional podrá desempeñarse en los ámbitos público y privado en campos ocupacionales como los que se enlistan a continuación:",
     planEstudiosPath: 'assets/images/planLCD.png',
+  ),
+  CarreraItem(
+    id: 3,
+    title: "Ingeniería en Sistemas Automotrices",
+    objectivo:
+        "Preparar ingenieros altamente especializados para atender las necesidades en ingeniería automotriz y de autopartes en sus Áreas de: manufactura, diseño, automatización, procesos, sistemas inteligentes, protección ambiental, administración e innovación tecnológica.",
+    perfilIngreso:
+        "El aspirante a estudiar la Carrera de Ingeniería en Sistemas Automotrices deberá haber egresado de cualquier institución pública o privada en el nivel medio superior o equivalente, dentro de alguna de las especialidades o área afines a las ciencias físico matemáticas, ello contribuirá al mejor equilibrio del conocimiento al ingreso. Aprobar el examen de admisión que el Instituto Politécnico Nacional establezca para este fin y atender los requerimientos de la convocatoria. El aspirante deberá tener los siguientes conocimientos básicos capacidades actitudes y valores: Conocimientos teóricos y prácticos de las Ciencias Físico Matemáticas. Uso de la metodología científica. Capacidades de razonamiento lógico. Actitudes de respeto y responsabilidad. Análisis y síntesis hacia la aplicación del conocimiento. Capacidad para expresarse mediante un lenguaje científico y cotidiano, tanto en forma oral como escrita. Compresión manejo y aplicación de la información a través de diversos lenguajes gráficos, computacionales y simbólicos. Habilidades manuales para el trabajo en laboratorio. Disposición para el autoaprendizaje que propicie su desarrollo intelectual, emotivo y social. Disposición a conocer la problemática nacional y participar en su solución.",
+    perfilEgreso:
+        "Es un profesionista que aplica conocimientos de la matemática, las ciencias naturales, las ciencias sociales, humanísticas y administrativas que ha adquirido a través del estudio, la experiencia y la práctica, al desarrollo de actividades tales como: Participación, en programas de investigación, desarrollo tecnológico e ingeniería experimental. Planeación, dirección y/o ejecución en diseños y proyectos de ingeniería. Dirección y/o ejecución de obras de construcción, instalación, producción y operación de bienes y servcios. Realización de estudios y consultoria sobre aspectos técnicos, tecnológicos y/o procesos relativos en la especialidad. Participación en los programas de elaboración de normas técnicas y de calidad para sistemas, productos, procesos y servicios. Programación y desarrollo de actividades comerciales, de gestión y periciales. Organización dirección y/o ejecución de programas de conservación y mantenimiento. Realización de funciones en docencia e instrucción en programas escolarizados, de educación continua, de especialización o posgrado. Manejo eficaz del idioma local y capacidad de comunicación en una lengua extranjera. Redacción de documentos, artículos e informes técnicos y no técnicos. Vinculación y participación en organismos gremiales, técnicos y culturales; nacionales y extranjeros. Organización y supervisión del trabajo de personal dependiente. Solución de problemas en beneficio de la persona y la sociedad en su conjunto, principalmente en las áreas de:Generación, conversión y conservación de la energía. Sistemas de propulsión, transmisión y diseño de vehículos. Seguridad. Sistemas inteligentes para guiado y supervisión de sistemas en vehículos. Producción industrial. Instalaciones, maquinaria e infraestructura. Participación en la economia del país. Producción más limpia.",
+    campoLaboral:
+        "El egresado de la carrera de Ingeniería en Sistemas Automotrices cuenta con una formación altamente especializada y multidisciplinaria que le permite desempeñarse profesionalmente en el Sector Automotriz y de Autopartes con una alta eficiencia, en cualquiera de las áreas siguientes: Diseño de Vehículos y sus Componentes, Manufactura de Autopartes, Control de Calidad, Ingeniería y Manufactura Asistidas por Computadora, Líneas de Ensamble, Desarrollo de Nuevas Tecnologías, Dispositivos Electrónicos, Materiales Compuestos, Áreas de Planeación, Ventas, Comercialización.",
+    planEstudiosPath:
+        'assets/images/planISA.png', // Se sugiere cambiar el path para que coincida con la carrera
   ),
 ];
 
