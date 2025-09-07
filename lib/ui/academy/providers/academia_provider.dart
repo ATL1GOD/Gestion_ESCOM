@@ -1,12 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:diacritic/diacritic.dart';
 import 'package:gestion_escom/core/services/api_service.dart';
-import 'package:gestion_escom/ui/academy/model/academia_model.dart'; // Asegúrate de que AcademiaModel esté en este archivo.
+import 'package:gestion_escom/ui/academy/model/academia_model.dart';
 
 // Provider para tu servicio de API (reutilizado de tu archivo anterior)
 final apiServiceProvider = Provider((ref) => ApiService());
 
-// 1. Provider para obtener la lista completa de academias desde la API
+// Provider para obtener la lista completa de academias desde la API
 final academiasProvider = FutureProvider<List<AcademiaModel>>((ref) async {
   // Observa el servicio de API
   final apiService = ref.watch(apiServiceProvider);
@@ -25,10 +25,10 @@ final academiasProvider = FutureProvider<List<AcademiaModel>>((ref) async {
   }
 });
 
-// 2. Provider para manejar el estado del texto de búsqueda
+// Provider para manejar el estado del texto de búsqueda
 final academiaSearchQueryProvider = StateProvider<String>((_) => '');
 
-// 3. Provider para filtrar la lista de academias según la búsqueda
+// Provider para filtrar la lista de academias según la búsqueda
 final filteredAcademiasProvider = Provider<List<AcademiaModel>>((ref) {
   // Observa el resultado del FutureProvider y el texto de búsqueda
   final allAcademiasAsyncValue = ref.watch(academiasProvider);
@@ -48,11 +48,17 @@ final filteredAcademiasProvider = Provider<List<AcademiaModel>>((ref) {
 
       // Filtra la lista de academias
       return academias.where((academia) {
-        // Normaliza el nombre de la academia
+        // Normaliza los campos de la academia para la búsqueda
         final nombreAcademia = removeDiacritics(academia.nombre.toLowerCase());
+        final nombrePresidente = removeDiacritics(
+          academia.presidente.toLowerCase(),
+        );
 
         // Comprueba si el nombre de la academia contiene el texto de búsqueda
         final matchesNombre = nombreAcademia.contains(query);
+
+        // ✨ CAMBIO: Comprueba si el nombre del presidente contiene el texto de búsqueda
+        final matchesPresidente = nombrePresidente.contains(query);
 
         // Comprueba si alguna de las materias contiene el texto de búsqueda
         final matchesMateria = academia.materias.any((materia) {
@@ -60,8 +66,8 @@ final filteredAcademiasProvider = Provider<List<AcademiaModel>>((ref) {
           return nombreMateria.contains(query);
         });
 
-        // Devuelve true si hay coincidencia en el nombre O en alguna materia
-        return matchesNombre || matchesMateria;
+        // Devuelve true si hay coincidencia en el nombre, presidente O en alguna materia
+        return matchesNombre || matchesPresidente || matchesMateria;
       }).toList();
     },
     // Si está cargando o hay un error, devuelve una lista vacía para la UI
