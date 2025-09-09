@@ -103,7 +103,8 @@ final List<CarouselItem> escomNewsData = [
   CarouselItem(
     id: 1,
     title: 'Ubica los salones',
-    imgUrl: '',
+    imgUrl:
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/tiburon1.png',
     infoItemType: InfoItem.mapaEscom,
     category: 'Mapa',
     author: 'ESCOM',
@@ -162,13 +163,15 @@ final Random random = Random();
 final List<String> randomImagePool = _generateImageUrls(baseUrl, 30);
 
 final List<CarouselItem> escomNewsWithImages = escomNewsData.map((item) {
-  final randomImageUrl =
-      randomImagePool[random.nextInt(randomImagePool.length)];
+  final imageUrl = item.imgUrl.isNotEmpty
+      ? item
+            .imgUrl // conserva la que ya pusiste
+      : randomImagePool[random.nextInt(randomImagePool.length)];
 
   return CarouselItem(
     id: item.id,
     title: item.title,
-    imgUrl: randomImageUrl,
+    imgUrl: imageUrl,
     infoItemType: item.infoItemType,
     category: item.category,
     author: item.author,
