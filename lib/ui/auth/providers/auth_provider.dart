@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gestion_escom/core/services/api_service.dart';
 import 'package:dio/dio.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 // Claves persistencia
 const _tokenKey = 'authToken';
@@ -31,7 +32,12 @@ class AuthNotifier extends StateNotifier<bool> {
 
   Future<void> _loadLoginStatus() async {
     final prefs = await SharedPreferences.getInstance();
-    state = prefs.getBool(_isLoggedInKey) ?? false;
+    final token = prefs.getString(_tokenKey);
+    if (token != null && !JwtDecoder.isExpired(token)) {
+      state = true;
+    } else {
+      await logout();
+    }
   }
 
   Future<void> login(String boleta, String curp) async {
@@ -42,6 +48,9 @@ class AuthNotifier extends StateNotifier<bool> {
 
     if (response.data['cod'] == 1) {
       final token = response.data['token'];
+      if (JwtDecoder.isExpired(token)) {
+        throw Exception('Token inválido o expirado.');
+      }
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(_tokenKey, token);
       await prefs.setBool(_isLoggedInKey, true);
@@ -66,7 +75,12 @@ class AuthNotifier extends StateNotifier<bool> {
 
   Future<String?> getToken() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_tokenKey);
+    final token = prefs.getString(_tokenKey);
+    if (token != null && !JwtDecoder.isExpired(token)) {
+      return token;
+    }
+    await logout();
+    return null;
   }
 }
 
@@ -121,7 +135,8 @@ class AuthService {
 
   Future<bool> isLoggedIn() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(_isLoggedInKey) ?? false;
+    final token = prefs.getString(_tokenKey);
+    return token != null && !JwtDecoder.isExpired(token);
   }
 
   Future<String?> getToken() async {
