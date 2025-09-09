@@ -23,7 +23,8 @@ class DirectorioScreen extends ConsumerWidget {
         children: [
           _buildBody(provider, screenWidth, screenHeight, headerHeight),
           HeaderFijo(
-            imagePath: 'assets/images/escudo_blanco.png',
+            imagePath:
+                'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/escudo_blanco.png',
             imageHeight: headerImageSize,
             imageWidth: headerImageSize,
           ),

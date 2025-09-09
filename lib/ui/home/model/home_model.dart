@@ -56,7 +56,9 @@ class EscomDetailListModel {
       
       Dos estudiantes de la licenciatura en diseño gráfico de la UAM-Azcapotzalco, apegados a los lineamientos generaron logotipos e imágenes, resultando ganador el presentado por la C. Guadalupe Gómez Sánchez, durante el simposium Tecno-Industria ESCOM-95. Enmarzo de 2011 se incluyó la leyenda Instituto Politécnico Nacional.
       """,
-      image: Image.asset('assets/images/escudo_azul.png'),
+      image: Image.network(
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/escudo_azul.png',
+      ),
       icon: Icons.shield_sharp,
     ),
   ];
@@ -211,7 +213,8 @@ final List<CarreraItem> carrerasItems = [
         "El egresado del programa académico de Ingeniería en Sistemas Computacionales podrá desempeñarse en equipos multidisciplinarios e interdisciplinarios en los ámbitos del desarrollo de software y hardware, sustentando su actuación profesional en valores éticos y de responsabilidad social, con un enfoque de liderazgo y sostenibilidad en los sectores público y privado.",
     campoLaboral:
         "El campo profesional en el que se desarrollan los egresados de este Programa Académico es muy amplio, se localiza en los sectores público y privado; en consultorías, en empresas del sector financiero, comercial, de servicios o bien en aquellas dedicadas a la innovación, en entidades federales, estatales, así como pequeño empresario creando empresas emergentes (startups).",
-    planEstudiosPath: 'assets/images/planISC.png',
+    planEstudiosPath:
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/planISC.jpg',
   ),
   CarreraItem(
     id: 1,
@@ -224,7 +227,8 @@ final List<CarreraItem> carrerasItems = [
         "El egresado de la Ingeniería en Inteligencia Artificial se desempeñará colaborativamente en equipos multidisciplinarios en el análisis, diseño, implementación, validación, implantación, supervisión y gestión de sistemas inteligentes, aplicando algoritmos en áreas como aprendizaje de máquina, procesamiento automático de lenguaje natural, visión artificial y modelos bioinspirados; ejerciendo su profesión con liderazgo, ética y responsabilidad social.",
     campoLaboral:
         "Este profesional podrá desempeñarse en el desarrollo y aplicación de la Inteligencia Artificial, en los ámbitos público y privado, en campos ocupacionales como los que se enlistan a continuación:",
-    planEstudiosPath: 'assets/images/planIIA.png',
+    planEstudiosPath:
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/planIIA.jpg',
   ),
   CarreraItem(
     id: 2,
@@ -237,7 +241,8 @@ final List<CarreraItem> carrerasItems = [
         "El egresado de la Licenciatura de Ciencia de Datos será capaz de extraer conocimiento implícito y complejo, potencialmente útil (descubrimiento de patrones, desviaciones, anomalías, valores anómalos, situaciones interesantes, tendencias), a partir de grandes conjuntos de datos. Utiliza los métodos de la inteligencia artificial, aprendizaje de máquina, estadística y sistemas de bases de datos para la toma de decisiones de alta dirección, fundadas en los datos y modelos matemáticos sobre comportamientos probables, deseables e indeseables, participando en dinámicas de trabajo colaborativo e interdisciplinario con sentido ético y responsabilidad social.",
     campoLaboral:
         "Este profesional podrá desempeñarse en los ámbitos público y privado en campos ocupacionales como los que se enlistan a continuación:",
-    planEstudiosPath: 'assets/images/planLCD.png',
+    planEstudiosPath:
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/planLCD.jpg',
   ),
   CarreraItem(
     id: 3,
@@ -251,7 +256,7 @@ final List<CarreraItem> carrerasItems = [
     campoLaboral:
         "El egresado de la carrera de Ingeniería en Sistemas Automotrices cuenta con una formación altamente especializada y multidisciplinaria que le permite desempeñarse profesionalmente en el Sector Automotriz y de Autopartes con una alta eficiencia, en cualquiera de las áreas siguientes: Diseño de Vehículos y sus Componentes, Manufactura de Autopartes, Control de Calidad, Ingeniería y Manufactura Asistidas por Computadora, Líneas de Ensamble, Desarrollo de Nuevas Tecnologías, Dispositivos Electrónicos, Materiales Compuestos, Áreas de Planeación, Ventas, Comercialización.",
     planEstudiosPath:
-        'assets/images/planISA.png', // Se sugiere cambiar el path para que coincida con la carrera
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/planISA.jpg', // Se sugiere cambiar el path para que coincida con la carrera
   ),
 ];
 
@@ -270,32 +275,38 @@ class MapaPhoto {
 
 final List<MapaPhoto> photos = [
   MapaPhoto(
-    imagenmapa: 'assets/images/escom_edificio0.png',
+    imagenmapa:
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/escom_edificio0.jpg',
     title: 'Mapa General de ESCOM',
     author: 'ESCOM',
   ),
   MapaPhoto(
-    imagenmapa: 'assets/images/escom_edificio1.png',
+    imagenmapa:
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/escom_edificio1.png',
     title: 'Edificio 1',
     author: 'ESCOM',
   ),
   MapaPhoto(
-    imagenmapa: 'assets/images/escom_edificio2.png',
+    imagenmapa:
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/escom_edificio2.png',
     title: 'Edificio 2',
     author: 'ESCOM',
   ),
   MapaPhoto(
-    imagenmapa: 'assets/images/escom_edificio3.png',
+    imagenmapa:
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/escom_edificio3.png',
     title: 'Edificio 3',
     author: 'ESCOM',
   ),
   MapaPhoto(
-    imagenmapa: 'assets/images/escom_edificio4.png',
+    imagenmapa:
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/escom_edificio4.png',
     title: 'Edificio 4',
     author: 'ESCOM',
   ),
   MapaPhoto(
-    imagenmapa: 'assets/images/escom_edificio5.png',
+    imagenmapa:
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/escom_edificio5.jpg',
     title: 'Edificio 5',
     author: 'ESCOM',
   ),

@@ -31,7 +31,8 @@ class HomeScreen extends StatelessWidget {
           ),
 
           HeaderFijo(
-            imagePath: 'assets/images/escudo_blanco.png',
+            imagePath:
+                'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/escudo_blanco.png',
             imageHeight: screenWidth * 0.45,
             imageWidth: screenWidth * 0.45,
           ),

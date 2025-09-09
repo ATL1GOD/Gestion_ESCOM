@@ -6,13 +6,19 @@ class DocenteInfoCard extends StatelessWidget {
   final DocenteModel docente;
   const DocenteInfoCard({super.key, required this.docente});
 
-  AssetImage _getAvatarImage() {
+  ImageProvider _getAvatarImage() {
     if (docente.sexo == 'M') {
-      return const AssetImage("assets/images/docente2.png");
+      return const NetworkImage(
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/docente2.jpg',
+      );
     } else if (docente.sexo == 'H') {
-      return const AssetImage("assets/images/docente1.png");
+      return const NetworkImage(
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/docente1.jpg',
+      );
     } else {
-      return const AssetImage("assets/images/docente0.png");
+      return const NetworkImage(
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/tiburon2.png',
+      );
     }
   }
 

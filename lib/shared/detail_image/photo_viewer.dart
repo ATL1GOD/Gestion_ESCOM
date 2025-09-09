@@ -26,7 +26,7 @@ class PhotoViewerScreen extends StatelessWidget {
       body: Hero(
         tag: heroTag,
         child: PhotoView(
-          imageProvider: AssetImage(imagePath),
+          imageProvider: NetworkImage(imagePath),
           // Muestra un indicador de carga mientras la imagen se prepara
           loadingBuilder: (context, event) => const Center(
             child: CircularProgressIndicator(

@@ -31,7 +31,11 @@ class HeaderFijo extends StatelessWidget {
           ),
         ),
         child: Center(
-          child: Image.asset(imagePath, width: imageWidth, height: imageHeight),
+          child: Image.network(
+            imagePath,
+            width: imageWidth,
+            height: imageHeight,
+          ),
         ),
       ),
     );

@@ -116,8 +116,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             height: 125,
                             decoration: const BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage(
-                                  'assets/images/escudo_azul.png',
+                                image: NetworkImage(
+                                  'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/escudo_azul.png',
                                 ),
                                 fit: BoxFit.fill,
                               ),

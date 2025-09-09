@@ -63,7 +63,8 @@ class _AcademiaListScreenState extends ConsumerState<AcademiaListScreen> {
           HeaderFijo(
             colorini: AppColors.terciary,
             colorfin: AppColors.primary,
-            imagePath: 'assets/images/escudo_azul.png',
+            imagePath:
+                'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/escudo_azul.png',
             imageHeight: headerImageSize,
             imageWidth: headerImageSize,
           ),

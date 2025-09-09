@@ -6,7 +6,8 @@ class CalendarioSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const String imagePath = 'assets/images/calendario_ipn.png';
+    const String imagePath =
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/calendario_ipn.jpg';
     const String heroTag = imagePath;
     const String title = 'Calendario Académico IPN';
 
@@ -42,7 +43,7 @@ class CalendarioSection extends StatelessWidget {
               tag: heroTag,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
-                child: Image.asset(imagePath, fit: BoxFit.cover),
+                child: Image.network(imagePath, fit: BoxFit.cover),
               ),
             ),
           ),

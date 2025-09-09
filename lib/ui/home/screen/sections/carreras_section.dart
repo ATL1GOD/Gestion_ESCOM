@@ -275,7 +275,7 @@ class CarrerasSection extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
               // Ahora creamos el Image.asset usando la ruta del modelo
-              child: Image.asset(
+              child: Image.network(
                 carreraItem.planEstudiosPath,
                 fit: BoxFit.cover,
               ),

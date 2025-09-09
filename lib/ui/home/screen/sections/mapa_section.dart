@@ -44,7 +44,10 @@ class MapaSection extends StatelessWidget {
               tag: featuredPhoto.imagenmapa,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
-                child: Image.asset(featuredPhoto.imagenmapa, fit: BoxFit.cover),
+                child: Image.network(
+                  featuredPhoto.imagenmapa,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
@@ -92,7 +95,10 @@ class MapaSection extends StatelessWidget {
                     Expanded(
                       child: Hero(
                         tag: photo.imagenmapa,
-                        child: Image.asset(photo.imagenmapa, fit: BoxFit.cover),
+                        child: Image.network(
+                          photo.imagenmapa,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Padding(
