@@ -164,8 +164,7 @@ final List<String> randomImagePool = _generateImageUrls(baseUrl, 30);
 
 final List<CarouselItem> escomNewsWithImages = escomNewsData.map((item) {
   final imageUrl = item.imgUrl.isNotEmpty
-      ? item
-            .imgUrl // conserva la que ya pusiste
+      ? item.imgUrl
       : randomImagePool[random.nextInt(randomImagePool.length)];
 
   return CarouselItem(
