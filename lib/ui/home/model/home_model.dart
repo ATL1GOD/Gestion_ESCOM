@@ -256,7 +256,7 @@ final List<CarreraItem> carrerasItems = [
     campoLaboral:
         "El egresado de la carrera de Ingeniería en Sistemas Automotrices cuenta con una formación altamente especializada y multidisciplinaria que le permite desempeñarse profesionalmente en el Sector Automotriz y de Autopartes con una alta eficiencia, en cualquiera de las áreas siguientes: Diseño de Vehículos y sus Componentes, Manufactura de Autopartes, Control de Calidad, Ingeniería y Manufactura Asistidas por Computadora, Líneas de Ensamble, Desarrollo de Nuevas Tecnologías, Dispositivos Electrónicos, Materiales Compuestos, Áreas de Planeación, Ventas, Comercialización.",
     planEstudiosPath:
-        'assets/images/planISA.png', // Se sugiere cambiar el path para que coincida con la carrera
+        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/planISA.png', // Se sugiere cambiar el path para que coincida con la carrera
   ),
 ];
 

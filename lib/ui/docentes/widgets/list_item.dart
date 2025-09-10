@@ -19,19 +19,19 @@ class DocenteListItemWidget extends StatelessWidget {
   });
 
   // Método para obtener la imagen del avatar según el género del docente
-  AssetImage _getAvatarImage() {
+  ImageProvider _getAvatarImage() {
+    const String baseUrl =
+        "https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/";
+
     if (docente.sexo == 'M') {
-      return const AssetImage(
-        "assets/images/docente2.png",
-      ); // Path to your female avatar
+      // Imagen para mujer
+      return const NetworkImage("${baseUrl}docente2.jpg");
     } else if (docente.sexo == 'H') {
-      return const AssetImage(
-        "assets/images/docente1.png",
-      ); // Path to your male avatar
+      // Imagen para hombre
+      return const NetworkImage("${baseUrl}docente1.jpg");
     } else {
-      return const AssetImage(
-        "assets/images/docente0.png",
-      ); // A default/fallback image
+      // Imagen por defecto
+      return const NetworkImage("${baseUrl}docente0.jpg");
     }
   }
 
