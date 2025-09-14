@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gestion_escom/core/utils/colors.dart';
 
-class FormularioCard extends StatelessWidget {
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    return TextEditingValue(
+      text: newValue.text.toUpperCase(),
+      selection: newValue.selection,
+    );
+  }
+}
+
+class FormularioCard extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController boletaController;
   final TextEditingController curpController;
@@ -18,6 +32,13 @@ class FormularioCard extends StatelessWidget {
   });
 
   @override
+  State<FormularioCard> createState() => _FormularioCardState();
+}
+
+class _FormularioCardState extends State<FormularioCard> {
+  bool _isCurpVisible = false;
+
+  @override
   Widget build(BuildContext context) {
     return Card(
       color: AppColors.background,
@@ -28,15 +49,16 @@ class FormularioCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
         child: Form(
-          key: formKey,
+          key: widget.formKey,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Boleta (Username) Text Field
+              // Boleta
               TextFormField(
-                controller: boletaController,
+                controller: widget.boletaController,
                 keyboardType: TextInputType.text,
                 style: const TextStyle(fontSize: 14),
+                inputFormatters: [UpperCaseTextFormatter()],
                 decoration: const InputDecoration(
                   hintText: 'Boleta',
                   prefixIcon: Icon(Icons.person),
@@ -52,12 +74,26 @@ class FormularioCard extends StatelessWidget {
 
               // CURP (Password) Text Field
               TextFormField(
-                controller: curpController,
-                obscureText: false,
+                controller: widget.curpController,
+                textCapitalization: TextCapitalization.characters,
+                obscureText: !_isCurpVisible,
                 style: const TextStyle(fontSize: 14),
-                decoration: const InputDecoration(
+                inputFormatters: [UpperCaseTextFormatter()],
+                decoration: InputDecoration(
                   hintText: 'CURP',
-                  prefixIcon: Icon(Icons.lock),
+                  prefixIcon: const Icon(Icons.lock),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      // Cambia el ícono basado en el estado de visibilidad
+                      _isCurpVisible ? Icons.visibility_off : Icons.visibility,
+                    ),
+                    onPressed: () {
+                      // Actualiza el estado al presionar el ícono
+                      setState(() {
+                        _isCurpVisible = !_isCurpVisible;
+                      });
+                    },
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -69,7 +105,7 @@ class FormularioCard extends StatelessWidget {
               const SizedBox(height: 30),
 
               // Login Button
-              isLoading
+              widget.isLoading
                   ? const CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(
                         AppColors.textSecondary,
@@ -87,7 +123,7 @@ class FormularioCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        onPressed: onSubmit,
+                        onPressed: widget.onSubmit,
                         child: const Text(
                           'INICIAR SESIÓN',
                           style: TextStyle(fontSize: 16),

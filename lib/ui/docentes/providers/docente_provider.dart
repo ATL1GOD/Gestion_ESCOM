@@ -13,7 +13,8 @@ final allDocentesProvider = FutureProvider<List<DocenteModel>>((ref) async {
 
   if (response.statusCode == 200) {
     final List<dynamic> data = response.data['data'];
-    return data.map((json) => DocenteModel.fromJson(json)).toList();
+    return data.map((json) => DocenteModel.fromJson(json)).toList()
+      ..sort((a, b) => a.profesor.compareTo(b.profesor));
   } else {
     throw Exception('Error al cargar la lista de docentes');
   }
