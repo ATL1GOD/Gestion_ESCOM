@@ -38,7 +38,7 @@ class RedesSection extends StatelessWidget {
               icon: FontAwesomeIcons.xTwitter,
               color: Colors.black,
               name: 'ESCOM IPN MX',
-              url: 'https://x.com/escomunidad/',
+              url: 'https://x.com/escomunidad',
             ),
           ],
         ),

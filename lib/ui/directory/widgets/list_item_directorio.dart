@@ -13,12 +13,31 @@ class DirectorioListItem extends StatelessWidget {
     required this.screenWidth,
   });
 
-  Future<void> _sendEmail() async {
-    final Uri emailLaunchUri = Uri(scheme: 'mailto', path: directorio.correo);
+  // En list_item_directorio.dart
 
-    if (await canLaunchUrl(emailLaunchUri)) {
-      await launchUrl(emailLaunchUri);
+  Future<void> _sendEmail() async {
+    // Crear el URI específico para Gmail.
+    // El formato es googlegmail:///co?to=[correo]&subject=[asunto]&body=[cuerpo]
+    final Uri gmailUri = Uri.parse(
+      'googlegmail:///co?to=${directorio.correo}&subject=Contacto%20desde%20App&body=Hola,%20',
+    );
+
+    // Crear el URI genérico como alternativa (fallback).
+    final Uri mailtoUri = Uri(
+      scheme: 'mailto',
+      path: directorio.correo,
+      queryParameters: {'subject': 'Contacto desde App', 'body': 'Hola, '},
+    );
+
+    // Intentar abrir Gmail primero.
+    if (await canLaunchUrl(gmailUri)) {
+      await launchUrl(gmailUri);
+    }
+    // Si no se puede (porque no está instalado), usar el método genérico.
+    else if (await canLaunchUrl(mailtoUri)) {
+      await launchUrl(mailtoUri);
     } else {
+      // Manejar el caso en que no hay ninguna app de correo.
       throw 'No se pudo abrir ${directorio.correo}';
     }
   }
