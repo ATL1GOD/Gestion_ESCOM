@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 class EscomDetailModel {
   final String title;
   final String content;
-  final Image? image;
+  final String? imageUrl;
   final IconData? icon;
 
   EscomDetailModel({
     required this.title,
     required this.content,
-    this.image,
+    this.imageUrl,
     this.icon,
   });
 }
@@ -33,6 +33,15 @@ class EscomDetailListModel {
       La Escuela Superior de Cómputo será líder en Latinoamérica en la formación integral de profesionales en el área de la computación, con estándares internacionales de calidad educativa, promoviendo la responsabilidad en sus alumnos para con su entorno, el sentido social y el respeto a la pluralidad. Propiciando la innovación y el emprendimiento para contribuir al desarrollo económico y tecnológico del país.
       """,
       icon: Icons.visibility_sharp,
+    ),
+    EscomDetailModel(
+      title: "Politica del Sistema de Gestión",
+      content: """
+     Nuestro compromiso es proporcionar servicios y productos educativos de calidad mediante la oferta de progrmas academicos, cientificos  y  tecnologicosde educacion superior pertinentes, que nos permitan contribuir con la mision y vision institucionales, con alto compromiso de responsabilidad social, procesos de transparencia, medidas de seguridad  y proteccion de datos, asi como gestion de la propiedad intelectual  y la mejora continua del Sistema de Gesion para Organizaciones Educativas (SGOE) a traves del cumplimiento de sus requisitos. 
+      """,
+      imageUrl:
+          'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/gestoresEnlacesSGOE.png',
+      icon: Icons.policy_outlined,
     ),
     EscomDetailModel(
       title: "Historia",
@@ -56,9 +65,8 @@ class EscomDetailListModel {
       
       Dos estudiantes de la licenciatura en diseño gráfico de la UAM-Azcapotzalco, apegados a los lineamientos generaron logotipos e imágenes, resultando ganador el presentado por la C. Guadalupe Gómez Sánchez, durante el simposium Tecno-Industria ESCOM-95. Enmarzo de 2011 se incluyó la leyenda Instituto Politécnico Nacional.
       """,
-      image: Image.network(
-        'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/escudo_azul.png',
-      ),
+      imageUrl:
+          'https://uteycv.escom.ipn.mx/csi/app-horarios/assets/imagenes/escudo_azul.png',
       icon: Icons.shield_sharp,
     ),
   ];

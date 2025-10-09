@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gestion_escom/core/utils/colors.dart';
 import 'package:gestion_escom/ui/home/model/home_model.dart';
+import 'package:gestion_escom/shared/detail_image/photo_viewer.dart';
 
 class InfoEscom extends StatelessWidget {
   const InfoEscom({super.key});
@@ -79,13 +80,48 @@ class EscomDetails extends StatelessWidget {
                         ),
                         textAlign: TextAlign.justify,
                       ),
-                      if (detail.image != null)
-                        Image(
-                          image: detail.image!.image,
-                          width: double.infinity,
-                          height: 150,
-                          fit: BoxFit.contain,
+                      const SizedBox(height: 10), // Espacio adicional
+                      // --- INICIO DE LA MODIFICACIÓN ---
+                      if (detail.imageUrl != null)
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PhotoViewerScreen(
+                                  // Pasamos los datos del 'detail' actual
+                                  imagePath: detail.imageUrl!,
+                                  heroTag: detail
+                                      .imageUrl!, // Usamos la URL como tag único
+                                  title: detail.title,
+                                ),
+                              ),
+                            );
+                          },
+                          child: Hero(
+                            // El tag debe ser único para cada imagen
+                            tag: detail.imageUrl!,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12.0),
+                              // Usamos Image.network porque tenemos una URL
+                              child: Image.network(
+                                detail.imageUrl!,
+                                width: double.infinity,
+                                height: 150,
+                                fit: BoxFit.contain,
+                                // Opcional: Muestra un loader mientras carga
+                                loadingBuilder: (context, child, progress) {
+                                  return progress == null
+                                      ? child
+                                      : const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                },
+                              ),
+                            ),
+                          ),
                         ),
+                      // --- FIN DE LA MODIFICACIÓN ---
                     ],
                   ),
                 ),
